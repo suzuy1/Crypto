@@ -7,13 +7,11 @@
     <meta name="keywords" content="cryptocurrency, blockchain, bitcoin, ethereum, DeFi, NFT, analisis kripto">
     <meta name="author" content="Analisis Kripto Interaktif">
     <title>Analisis Ekosistem Kripto Interaktif | Panduan Lengkap Cryptocurrency</title>
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-bg: #0A192F;
@@ -44,7 +42,20 @@
             background-size: 200% 100%;
             animation: loading 1.5s infinite;
         }
-
+        /* Mobile Navigation */
+        .mobile-menu {
+            position: fixed;
+            top: 0;                 /* mulai dari atas viewport */
+            left: 0;
+            right: 0;
+            height: 100vh;          /* tinggi penuh layar */
+            transform: translateY(-100%); /* sembunyi di luar atas */
+            transition: transform 0.3s ease;
+            z-index: 40;
+        }
+        .mobile-menu.open {
+            transform: translateY(0); /* turun ke posisi 0 */
+        }
         @keyframes loading {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
@@ -64,7 +75,7 @@
         }
 
         .nav-link::after {
-            content: '';
+            content: "";
             position: absolute;
             width: 0;
             height: 2px;
@@ -81,12 +92,13 @@
 
         /* Mobile Navigation */
         .mobile-menu {
-            transform: translateX(100%);
+            /* Perubahan di sini untuk slide dari atas ke bawah */
+            transform: translateY(-100%); /* Sembunyikan ke atas */
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .mobile-menu.open {
-            transform: translateX(0);
+            transform: translateY(0); /* Tampilkan */
         }
 
         /* Buttons */
@@ -121,7 +133,7 @@
         }
 
         .card::before {
-            content: '';
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
@@ -235,17 +247,14 @@
                 border-bottom: 1px solid var(--border-color);
                 border-radius: 0;
             }
-
             .chart-container {
                 height: 300px;
                 padding: 0.5rem;
             }
-
             .btn-accent {
                 padding: 0.75rem 1.5rem;
                 font-size: 0.9rem;
             }
-
             .tab-button {
                 padding: 0.5rem 1rem;
                 font-size: 0.9rem;
@@ -292,7 +301,7 @@
             <a href="#" class="text-2xl font-bold text-[#CCD6F6] hover:text-[#64FFDA] transition-colors">
                 Kripto<span class="text-[#64FFDA]">Interaktif</span>
             </a>
-            
+
             <!-- Desktop Navigation -->
             <div class="hidden lg:flex items-center space-x-4">
                 <a href="#pendahuluan" class="nav-link">Pendahuluan</a>
@@ -304,23 +313,25 @@
                 <a href="#kelebihan-kekurangan" class="nav-link">Pro & Kontra</a>
                 <a href="#integrasi-ai-bigdata" class="nav-link">Kripto & AI</a>
             </div>
-            
+
             <a href="#pendahuluan" class="hidden lg:block btn-accent">Mulai Jelajah</a>
-            
+
             <!-- Mobile Menu Button -->
             <button id="mobileMenuBtn" class="lg:hidden text-2xl text-[#CCD6F6] hover:text-[#64FFDA] transition-colors" aria-label="Toggle Menu">
-                <span id="menuIcon">☰</span>
+                <span id="menuIcon">☰</span> <!-- Menggunakan span dengan ID untuk ikon -->
             </button>
         </nav>
 
         <!-- Mobile Navigation -->
-        <div id="mobileMenu" class="mobile-menu lg:hidden fixed inset-y-0 right-0 w-80 bg-[#112240] shadow-xl z-50">
-            <div class="p-6">
+        <!-- Perubahan di sini: inset-x-0 top-0 untuk posisi, w-full untuk lebar, flex flex-col, justify-between, h-full -->
+        <div id="mobileMenu" class="mobile-menu lg:hidden fixed inset-0 top-0 bg-[#112240]/95 backdrop-blur-sm shadow-xl z-50 flex flex-col max-h-screen overflow-y-auto">
+            <div class="p-6 flex-grow flex flex-col overflow-y-auto"> <!-- flex-grow untuk mengisi ruang yang tersedia -->
                 <div class="flex justify-between items-center mb-8">
                     <h3 class="text-xl font-bold text-[#CCD6F6]">Menu</h3>
                     <button id="closeMobileMenu" class="text-2xl text-[#CCD6F6] hover:text-[#64FFDA]" aria-label="Close Menu">×</button>
                 </div>
-                <nav class="space-y-2">
+
+                <nav class="space-y-2 flex-grow"> <!-- flex-grow agar menu mengisi ruang di antara header dan footer sidebar -->
                     <a href="#pendahuluan" class="nav-link block">Pendahuluan</a>
                     <a href="#apa-itu-kripto" class="nav-link block">Definisi Kripto</a>
                     <a href="#mekanisme-kerja" class="nav-link block">Cara Kerja</a>
@@ -330,6 +341,7 @@
                     <a href="#kelebihan-kekurangan" class="nav-link block">Pro & Kontra</a>
                     <a href="#integrasi-ai-bigdata" class="nav-link block">Kripto & AI</a>
                 </nav>
+
                 <div class="mt-8">
                     <a href="#pendahuluan" class="btn-accent block text-center">Mulai Jelajah</a>
                 </div>
@@ -339,7 +351,6 @@
 
     <main class="container mx-auto px-4 lg:px-6 py-8 md:py-16">
         <div class="max-w-7xl mx-auto">
-            
             <section id="pendahuluan" class="text-center mb-24 scroll-mt-20">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight bg-gradient-to-r from-[#CCD6F6] to-[#64FFDA] bg-clip-text text-transparent">
                     Analisis Ekosistem Cryptocurrency
@@ -348,7 +359,6 @@
                     Jelajahi mekanisme, jenis, infrastruktur, dan prospek masa depan mata uang digital yang mengubah lanskap keuangan global dengan pendekatan yang komprehensif dan interaktif.
                 </p>
                 <a href="#apa-itu-kripto" class="btn-accent text-lg shadow-2xl">Mulai Jelajahi Kripto</a>
-                
                 <div class="mt-16">
                     <h3 class="text-2xl md:text-3xl font-bold mb-4">Pertumbuhan Adopsi Kripto Global</h3>
                     <p class="text-[#8892B0] mb-8 max-w-2xl mx-auto">
@@ -369,37 +379,25 @@
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Memahami Cryptocurrency</h2>
                     <h3 class="text-xl md:text-2xl text-[#64FFDA] mb-4">Definisi dan Pilar Utama</h3>
                     <p class="text-lg text-[#8892B0] max-w-4xl mx-auto leading-relaxed">
-                        Cryptocurrency adalah bentuk mata uang digital atau virtual yang keamanannya dijamin oleh kriptografi. 
-                        Semua transaksi tercatat secara permanen dan transparan pada blockchain.
+                        Cryptocurrency adalah bentuk mata uang digital atau virtual yang keamanannya dijamin oleh kriptografi. Semua transaksi tercatat secara permanen dan transparan pada blockchain.
                     </p>
                 </div>
-
                 <div class="space-y-8">
                     <div class="card p-6 md:p-8">
                         <h3 class="text-2xl md:text-3xl font-bold mb-6 text-[#CCD6F6]">A. Apa Itu Cryptocurrency?</h3>
                         <p class="text-[#8892B0] leading-relaxed">
-                            Cryptocurrency adalah bentuk mata uang digital atau virtual yang keamanannya dijamin oleh kriptografi, 
-                            sebuah teknik enkripsi canggih yang membuatnya hampir tidak mungkin dipalsukan atau digandakan. 
-                            Berbeda dengan mata uang fiat tradisional, cryptocurrency tidak memiliki bentuk fisik; seluruh proses 
-                            pembelian dan pertukaran berlangsung secara digital. Semua transaksi yang dilakukan dengan cryptocurrency 
-                            tercatat secara permanen dan transparan pada sebuah buku besar digital terdistribusi yang dikenal sebagai 
-                            <strong class="text-[#64FFDA]">blockchain</strong>. Bitcoin, yang pertama kali muncul pada tahun 2008, 
-                            adalah contoh paling awal dan terbesar dari jenis mata uang digital ini, yang membuka jalan bagi ribuan cryptocurrency lainnya.
+                            Cryptocurrency adalah bentuk mata uang digital atau virtual yang keamanannya dijamin oleh kriptografi, sebuah teknik enkripsi canggih yang membuatnya hampir tidak mungkin dipalsukan atau digandakan. Berbeda dengan mata uang fiat tradisional, cryptocurrency tidak memiliki bentuk fisik; seluruh proses pembelian dan pertukaran berlangsung secara digital. Semua transaksi yang dilakukan dengan cryptocurrency tercatat secara permanen dan transparan pada sebuah buku besar digital terdistribusi yang dikenal sebagai <strong class="text-[#64FFDA]">blockchain</strong>. Bitcoin, yang pertama kali muncul pada tahun 2008, adalah contoh paling awal dan terbesar dari jenis mata uang digital ini, yang membuka jalan bagi ribuan cryptocurrency lainnya.
                         </p>
                     </div>
-
                     <div class="card p-6 md:p-8">
                         <h3 class="text-2xl md:text-3xl font-bold mb-6 text-[#CCD6F6]">B. Karakteristik Kunci Cryptocurrency</h3>
                         <div id="crypto-characteristics-accordion" class="space-y-4"></div>
                     </div>
-
                     <div class="card p-6 md:p-8">
                         <h3 class="text-2xl md:text-3xl font-bold mb-6 text-[#CCD6F6]">C. Teknologi Blockchain</h3>
                         <h4 class="text-lg md:text-xl text-[#64FFDA] mb-4">Fondasi Desentralisasi, Transparansi, dan Immutability</h4>
                         <p class="text-[#8892B0] mb-6 leading-relaxed">
-                            Blockchain adalah teknologi pencatatan data yang revolusioner, dikenal karena sifatnya yang terdesentralisasi, 
-                            transparan, dan sangat aman. Teknologi ini berfungsi layaknya buku besar digital yang mencatat semua transaksi 
-                            atau data, namun tidak disimpan di satu lokasi pusat.
+                            Blockchain adalah teknologi pencatatan data yang revolusioner, dikenal karena sifatnya yang terdesentralisasi, transparan, dan sangat aman. Teknologi ini berfungsi layaknya buku besar digital yang mencatat semua transaksi atau data, namun tidak disimpan di satu lokasi pusat.
                         </p>
                         <div id="blockchain-pillars-accordion" class="space-y-4"></div>
                     </div>
@@ -410,44 +408,28 @@
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Mekanisme Kerja Cryptocurrency</h2>
                     <p class="text-lg text-[#8892B0] max-w-4xl mx-auto leading-relaxed">
-                        Pahami bagaimana transaksi kripto diproses dan divalidasi, serta mekanisme konsensus yang mendasarinya 
-                        dalam ekosistem blockchain yang kompleks.
+                        Pahami bagaimana transaksi kripto diproses dan divalidasi, serta mekanisme konsensus yang mendasarinya dalam ekosistem blockchain yang kompleks.
                     </p>
                 </div>
-
                 <div class="space-y-8">
                     <div class="card p-6 md:p-8">
                         <h3 class="text-2xl md:text-3xl font-bold mb-6 text-[#CCD6F6]">A. Proses Transaksi dan Validasi</h3>
                         <p class="text-[#8892B0] leading-relaxed">
-                            Transaksi cryptocurrency melibatkan jaringan komputer yang menggunakan algoritma perhitungan tertentu yang disebut kriptografi. 
-                            Proses ini dimulai dengan penambang (miner) yang menjalankan node, yaitu komputer yang menjalankan perangkat lunak blockchain 
-                            dan menjaga agar jaringan tetap beroperasi. Penambang kemudian mengelompokkan transaksi yang perlu diverifikasi ke dalam sebuah "blok". 
-                            Tugas krusial penambang adalah memverifikasi "hash" kriptografi yang rumit dari setiap blok. Penambang pertama yang berhasil 
-                            memecahkan teka-teki kriptografi tersebut akan mendapatkan hak untuk memproses blok transaksi terbaru, dan menerima hadiah. 
-                            Setelah blok diverifikasi, informasi tersebut didistribusikan ke semua penambang lain, memastikan terciptanya riwayat transaksi 
-                            yang tepercaya dan terverifikasi.
+                            Transaksi cryptocurrency melibatkan jaringan komputer yang menggunakan algoritma perhitungan tertentu yang disebut kriptografi. Proses ini dimulai dengan penambang (miner) yang menjalankan node, yaitu komputer yang menjalankan perangkat lunak blockchain dan menjaga agar jaringan tetap beroperasi. Penambang kemudian mengelompokkan transaksi yang perlu diverifikasi ke dalam sebuah "blok". Tugas krusial penambang adalah memverifikasi "hash" kriptografi yang rumit dari setiap blok. Penambang pertama yang berhasil memecahkan teka-teki kriptografi tersebut akan mendapatkan hak untuk memproses blok transaksi terbaru, dan menerima hadiah. Setelah blok diverifikasi, informasi tersebut didistribusikan ke semua penambang lain, memastikan terciptanya riwayat transaksi yang tepercaya dan terverifikasi.
                         </p>
                     </div>
-
                     <div class="card p-6 md:p-8">
                         <h3 class="text-2xl md:text-3xl font-bold mb-6 text-[#CCD6F6]">B. Mekanisme Konsensus Utama</h3>
                         <p class="text-[#8892B0] mb-6 leading-relaxed">
-                            Mekanisme konsensus adalah serangkaian prosedur dan aturan yang memungkinkan suatu jaringan komputer mencapai 
-                            kesepakatan bersama mengenai validasi transaksi atau data tanpa memerlukan otoritas terpusat.
+                            Mekanisme konsensus adalah serangkaian prosedur dan aturan yang memungkinkan suatu jaringan komputer mencapai kesepakatan bersama mengenai validasi transaksi atau data tanpa memerlukan otoritas terpusat.
                         </p>
                         <div class="flex flex-wrap gap-3 mb-6 justify-center" id="consensus-tabs"></div>
                         <div id="consensus-content" class="min-h-[150px]"></div>
                     </div>
-
                     <div class="card p-6 md:p-8">
                         <h3 class="text-2xl md:text-3xl font-bold mb-6 text-[#CCD6F6]">C. Peran Penambang (Miner) dan Node</h3>
                         <p class="text-[#8892B0] leading-relaxed">
-                            Dalam ekosistem cryptocurrency, penambang (miner) dan node memainkan peran krusial dalam menjaga integritas dan operasional jaringan. 
-                            Penambang adalah individu atau entitas yang mengoperasikan perangkat keras komputer khusus untuk memverifikasi transaksi dan 
-                            memecahkan teka-teki kriptografi, menerima komisi sebagai hadiah. Node adalah komputer yang menjalankan perangkat lunak blockchain 
-                            dan berfungsi untuk menjaga agar jaringan tetap berjalan, memiliki salinan identik dari seluruh buku besar transaksi. 
-                            Dampak lingkungan yang terkait dengan penambangan PoW (konsumsi energi tinggi, emisi karbon, e-waste) mendorong industri 
-                            mencari model yang lebih hemat energi seperti PoS.
+                            Dalam ekosistem cryptocurrency, penambang (miner) dan node memainkan peran krusial dalam menjaga integritas dan operasional jaringan. Penambang adalah individu atau entitas yang mengoperasikan perangkat keras komputer khusus untuk memverifikasi transaksi dan memecahkan teka-teki kriptografi, menerima kompensasi atas usaha mereka. Node adalah komputer yang terhubung ke jaringan blockchain, menyimpan salinan lengkap atau sebagian dari buku besar transaksi, dan memvalidasi setiap transaksi dan blok baru sesuai dengan aturan konsensus.
                         </p>
                     </div>
                 </div>
@@ -455,23 +437,28 @@
 
             <section id="jenis-aset-kripto" class="mb-24 scroll-mt-20">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Berbagai Jenis Aset Kripto</h2>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Jenis Aset Cryptocurrency</h2>
                     <p class="text-lg text-[#8892B0] max-w-4xl mx-auto leading-relaxed">
-                        Ekosistem cryptocurrency telah berkembang jauh melampaui Bitcoin, memperkenalkan berbagai jenis aset digital 
-                        dengan fungsi dan tujuan yang berbeda, masing-masing melayani kebutuhan spesifik dalam ekonomi digital.
+                        Jelajahi berbagai kategori aset kripto, dari mata uang digital hingga token utilitas dan NFT.
                     </p>
                 </div>
-                <div class="flex flex-wrap gap-3 mb-8 justify-center" id="asset-tabs"></div>
-                <div id="asset-content" class="card p-6 md:p-8 min-h-[200px]"></div>
+                <div class="space-y-8">
+                    <div class="card p-6 md:p-8">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-6 text-[#CCD6F6]">A. Kategori Utama Aset Kripto</h3>
+                        <p class="text-[#8892B0] mb-6 leading-relaxed">
+                            Ekosistem cryptocurrency sangat luas dan terus berkembang, mencakup berbagai jenis aset digital dengan fungsi dan tujuan yang berbeda. Memahami kategori-kategori ini penting untuk menavigasi dunia kripto.
+                        </p>
+                        <div class="flex flex-wrap gap-3 mb-6 justify-center" id="asset-tabs"></div>
+                        <div id="asset-content" class="min-h-[150px]"></div>
+                    </div>
+                </div>
             </section>
 
             <section id="infrastruktur" class="mb-24 scroll-mt-20">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Infrastruktur Blockchain</h2>
-                    <h3 class="text-xl md:text-2xl text-[#64FFDA] mb-4">Layer 1 dan Layer 2</h3>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Infrastruktur Ekosistem Blockchain</h2>
                     <p class="text-lg text-[#8892B0] max-w-4xl mx-auto leading-relaxed">
-                        Pahami lapisan-lapisan yang membentuk fondasi ekosistem blockchain dan bagaimana mereka mengatasi 
-                        tantangan skalabilitas untuk menciptakan jaringan yang lebih efisien.
+                        Pahami lapisan-lapisan yang membentuk fondasi ekosistem blockchain dan bagaimana mereka mengatasi tantangan skalabilitas untuk menciptakan jaringan yang lebih efisien.
                     </p>
                 </div>
                 <div id="infrastructure-accordion" class="space-y-4"></div>
@@ -481,8 +468,7 @@
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Platform untuk Membeli dan Menyimpan Cryptocurrency</h2>
                     <p class="text-lg text-[#8892B0] max-w-4xl mx-auto leading-relaxed">
-                        Untuk berpartisipasi dalam ekosistem cryptocurrency, pengguna memerlukan platform untuk membeli dan menjual aset digital, 
-                        serta dompet untuk menyimpannya dengan aman sesuai dengan kebutuhan dan preferensi masing-masing.
+                        Untuk berpartisipasi dalam ekosistem cryptocurrency, pengguna memerlukan platform untuk membeli dan menjual aset digital, serta dompet untuk menyimpannya dengan aman.
                     </p>
                 </div>
                 <div id="platforms-wallets-accordion" class="space-y-4"></div>
@@ -492,19 +478,16 @@
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Kelebihan dan Kekurangan Cryptocurrency</h2>
                     <p class="text-lg text-[#8892B0] max-w-4xl mx-auto leading-relaxed">
-                        Seperti halnya teknologi baru, cryptocurrency memiliki sisi positif dan negatif yang perlu dipahami 
-                        untuk membuat keputusan yang tepat dalam mengadopsi teknologi ini.
+                        Memahami potensi dan risiko adalah kunci untuk berinvestasi dan berinteraksi dengan aset digital secara bijak.
                     </p>
                 </div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="space-y-8">
                     <div class="card p-6 md:p-8">
                         <h3 class="text-2xl md:text-3xl font-bold mb-6 text-[#64FFDA] flex items-center">
-                            <span class="mr-3 text-3xl">✓</span>Kelebihan
+                            <span class="mr-3 text-3xl">✔</span>Kelebihan
                         </h3>
-                        <ul class="list-disc list-inside text-[#8892B0] space-y-3">
-                            <li><strong class="text-[#CCD6F6]">Inklusi Keuangan:</strong> Memungkinkan akses ke layanan keuangan bagi 1,7 miliar orang yang tidak memiliki akses perbankan tradisional.</li>
-                            <li><strong class="text-[#CCD6F6]">Kemandirian Keuangan:</strong> Kontrol lebih besar atas aset tanpa intervensi lembaga keuangan tradisional.</li>
-                            <li><strong class="text-[#CCD6F6]">Peluang Bisnis Baru:</strong> Mendorong inovasi dan model bisnis baru dalam ekonomi digital.</li>
+                        <ul class="list-disc list-inside space-y-3 text-[#8892B0] leading-relaxed">
+                            <li><strong class="text-[#CCD6F6]">Desentralisasi:</strong> Tidak dikelola oleh pemerintah atau lembaga keuangan, mengurangi risiko sensor dan manipulasi.</li>
                             <li><strong class="text-[#CCD6F6]">Tahan Inflasi:</strong> Pasokan terbatas (misal Bitcoin) dirancang untuk meningkatkan nilai dan tahan inflasi.</li>
                             <li><strong class="text-[#CCD6F6]">Transparan dan Cepat:</strong> Transaksi publik di blockchain, diselesaikan dalam detik/menit.</li>
                             <li><strong class="text-[#CCD6F6]">Privasi:</strong> Terlindung dari pencurian identitas dengan transaksi pseudonim.</li>
@@ -515,14 +498,12 @@
                         <h3 class="text-2xl md:text-3xl font-bold mb-6 text-[#CD5C5C] flex items-center">
                             <span class="mr-3 text-3xl">⚠</span>Kekurangan
                         </h3>
-                        <ul class="list-disc list-inside text-[#8892B0] space-y-3">
-                            <li><strong class="text-[#CCD6F6]">Volatilitas Tinggi:</strong> Nilai dapat naik atau turun drastis dalam waktu singkat, investasi berisiko tinggi.</li>
-                            <li><strong class="text-[#CCD6F6]">Risiko Aktivitas Ilegal:</strong> Sifat pseudonim dapat dimanfaatkan untuk aktivitas ilegal.</li>
-                            <li><strong class="text-[#CCD6F6]">Irreversible:</strong> Setelah dikirim, transaksi tidak dapat dibatalkan atau dikembalikan.</li>
-                            <li><strong class="text-[#CCD6F6]">Kuantitas Terbatas:</strong> Dapat menyebabkan fluktuasi harga ekstrem dan spekulasi.</li>
-                            <li><strong class="text-[#CCD6F6]">Risiko Kehilangan:</strong> Kehilangan kunci pribat berarti kehilangan aset permanen.</li>
-                            <li><strong class="text-[#CCD6F6]">Tidak Ada Fundamental:</strong> Penilaian nilai sangat bergantung pada sentimen pasar.</li>
-                            <li><strong class="text-[#CCD6F6]">Tidak Ada Otoritas:</strong> Kurangnya perlindungan atau jaminan dari pihak ketiga.</li>
+                        <ul class="list-disc list-inside space-y-3 text-[#8892B0] leading-relaxed">
+                            <li><strong class="text-[#CCD6F6]">Volatilitas Tinggi:</strong> Harga sangat fluktuatif, berisiko tinggi untuk investasi.</li>
+                            <li><strong class="text-[#CCD6F6]">Regulasi yang Belum Jelas:</strong> Kurangnya kerangka regulasi global dapat menimbulkan ketidakpastian hukum.</li>
+                            <li><strong class="text-[#CCD6F6]">Risiko Keamanan:</strong> Rentan terhadap peretasan bursa dan penipuan jika tidak disimpan dengan aman.</li>
+                            <li><strong class="text-[#CCD6F6]">Skalabilitas:</strong> Beberapa blockchain menghadapi tantangan dalam memproses volume transaksi tinggi.</li>
+                            <li><strong class="text-[#CCD6F6]">Dampak Lingkungan:</strong> Proses penambangan (terutama Proof of Work) membutuhkan energi besar.</li>
                         </ul>
                     </div>
                 </div>
@@ -530,522 +511,473 @@
 
             <section id="integrasi-ai-bigdata" class="mb-24 scroll-mt-20">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Potensi Integrasi dengan AI dan Big Data</h2>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Integrasi Cryptocurrency dengan AI dan Big Data</h2>
                     <p class="text-lg text-[#8892B0] max-w-4xl mx-auto leading-relaxed">
-                        Konvergensi antara cryptocurrency, blockchain, Artificial Intelligence (AI), dan Big Data merupakan 
-                        salah satu area inovasi paling menjanjikan di masa depan, membuka peluang transformasi digital yang tak terbatas.
+                        Bagaimana sinergi antara blockchain, kecerdasan buatan (AI), dan big data membentuk masa depan inovasi digital.
                     </p>
                 </div>
                 <div id="ai-bigdata-accordion" class="space-y-4"></div>
             </section>
+
         </div>
     </main>
-    
+
     <footer class="bg-[#112240] border-t border-[#233554]">
         <div class="container mx-auto px-4 lg:px-6 py-12">
             <div class="text-center">
                 <h3 class="text-2xl font-bold text-[#CCD6F6] mb-4">Kripto<span class="text-[#64FFDA]">Interaktif</span></h3>
                 <p class="text-[#8892B0] mb-4 max-w-2xl mx-auto">
-                    Dibuat sebagai analisis interaktif komprehensif untuk memahami ekosistem cryptocurrency 
-                    dan teknologi blockchain dalam era digital modern.
+                    Dibuat sebagai analisis interaktif komprehensif untuk memahami ekosistem cryptocurrency dan teknologi blockchain dalam era digital modern.
                 </p>
                 <p class="text-[#8892B0]">&copy; 2025. Dirancang untuk pembelajaran dan edukasi.</p>
             </div>
         </div>
     </footer>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Configuration and Data
-    const config = {
-        animationDuration: 300,
-        chartDelay: 1000
-    };
-
-    // Data for Crypto Adoption Chart
-    const adoptionChartData = {
-        labels: ['2021', '2022', '2023', '2024 (Jan)', '2024 (Des)', '2025 (Prediksi)'],
-        data: [100, 300, 580, 583, 659, 750],
-        backgroundColor: 'rgba(100, 255, 218, 0.8)',
-        borderColor: '#64FFDA'
-    };
-
-    // Content Data
-    const contentData = {
-        cryptoCharacteristics: [
-            { title: 'Digital', content: 'Cryptocurrency sepenuhnya berbentuk digital. Tidak ada koin atau uang kertas fisik yang dapat dipegang, dan semua proses transaksi, pembelian, dan pertukaran dilakukan secara elektronik melalui jaringan internet.' },
-            { title: 'Global', content: 'Nilai cryptocurrency bersifat global dan tidak terikat pada batas geografis atau negara tertentu. Nilainya cenderung sama di mana pun, tidak terpengaruh oleh nilai tukar antar negara, karena tidak ada lembaga atau pemerintah yang mencetaknya.' },
-            { title: 'Peer-to-Peer', content: 'Transaksi cryptocurrency dilakukan secara langsung antara dua pihak (peer-to-peer) melalui jaringan online, tanpa memerlukan perantara seperti bank atau lembaga keuangan lainnya, mengurangi biaya dan waktu transaksi.' },
-            { title: 'Terenkripsi (Kriptografi)', content: 'Keamanan cryptocurrency dijamin oleh kriptografi canggih. Pengguna menggunakan kode unik untuk menyelesaikan transaksi, dan identitas asli mereka tidak diungkapkan, memberikan tingkat privasi dan keamanan yang tinggi.' },
-            { title: 'Terdesentralisasi', content: 'Tidak dikelola oleh server pusat atau otoritas tunggal seperti bank sentral. Jaringan terdiri dari ribuan atau jutaan komputer (node) yang tersebar di seluruh dunia, dan setiap node memiliki salinan identik dari seluruh buku besar transaksi.' },
-            { title: 'Trustless', content: 'Pengguna dapat melakukan transaksi tanpa perlu saling mempercayai atau memercayakan uang atau informasi kepada pihak ketiga. Kepercayaan dibangun melalui mekanisme kriptografi dan konsensus jaringan itu sendiri.' },
-            { title: 'Volatilitas Tinggi', content: 'Dikenal memiliki volatilitas harga yang sangat tinggi. Nilainya dapat naik atau turun secara drastis dalam waktu singkat, menjadikannya kendaraan investasi berisiko tinggi dengan potensi pengembalian yang juga tinggi.' },
-            { title: 'Kuantitas Terbatas', content: 'Banyak cryptocurrency, seperti Bitcoin, memiliki pasokan maksimum yang terbatas (misalnya, 21 juta Bitcoin). Ketersediaan yang terbatas ini dirancang untuk meningkatkan nilai aset dan melindunginya dari inflasi.' },
-            { title: 'Transaksi Irreversible', content: 'Setelah sebuah transaksi cryptocurrency dikirim dan diverifikasi di blockchain, transaksi tersebut tidak dapat dibatalkan atau dibekukan. Pengembalian dana hanya dapat dilakukan jika penerima secara sukarela mengembalikan aset digital tersebut.' },
-            { title: 'Pseudonim', content: 'Meskipun semua transaksi tercatat secara publik di blockchain, identitas sebenarnya dari pengguna atau lokasi mereka tidak diungkapkan. Pengguna diidentifikasi melalui alamat kripto, memberikan lapisan anonimitas yang kuat.' }
-        ],
-        blockchainPillars: [
-            { title: 'Desentralisasi', content: 'Inti dari filosofi blockchain adalah desentralisasi, di mana data tidak disimpan pada satu tempat atau satu entitas pusat. Jaringan terdiri dari ribuan atau jutaan komputer (node) yang tersebar di seluruh dunia, dan setiap node memiliki salinan identik dari seluruh buku besar transaksi (ledger). Ini membuat data sulit diretas karena tidak ada satu titik kegagalan (single point of failure).' },
-            { title: 'Transparansi', content: 'Meskipun identitas asli pengguna sering dianonimkan, semua transaksi yang terjadi di blockchain bersifat publik dan dapat dilihat oleh siapa saja. Riwayat transaksi tidak dapat dimanipulasi; tidak ada yang bisa menghapus, mengubah, atau memanipulasi data apa pun yang telah tercatat dalam blockchain.' },
-            { title: 'Immutability (Kekekalan)', content: 'Berarti bahwa sekali data atau transaksi dicatat dan ditambahkan ke blockchain, data tersebut tidak dapat diubah, dihapus, atau dimanipulasi. Setiap blok terhubung dengan blok sebelumnya menggunakan hash kriptografi yang unik, sehingga perubahan sekecil apa pun akan merusak rantai dan segera terdeteksi oleh jaringan.' }
-        ],
-        consensusMechanisms: [
-            { id: 'pow', title: 'Proof of Work (PoW)', content: 'Mekanisme ini mengharuskan penambang untuk memecahkan masalah kriptografi yang kompleks dan intensif secara komputasi sebelum blok baru dapat divalidasi. Penambang yang berhasil akan diberikan hadiah cryptocurrency. Bitcoin adalah contoh utama blockchain yang menggunakan PoW. Kelemahan: konsumsi energi tinggi.' },
-            { id: 'pos', title: 'Proof of Stake (PoS)', content: 'PoS memilih validator blok berdasarkan jumlah koin atau token yang mereka miliki dan "pertaruhkan" (stake) sebagai jaminan. Semakin banyak koin yang di-stake, semakin besar kemungkinan mereka dipilih untuk memvalidasi blok dan menerima hadiah. Ethereum kini menggunakan PoS setelah beralih dari PoW.' },
-            { id: 'dpos', title: 'Delegated Proof of Stake (DPoS)', content: 'DPoS adalah varian dari PoS yang memilih sekelompok validator terpercaya. Pemegang koin atau token dapat memilih validator yang akan mewakili mereka dalam proses konsensus. Sistem ini lebih cepat dan efisien. EOS adalah contoh blockchain yang menggunakan DPoS.' },
-            { id: 'poa', title: 'Proof of Authority (PoA)', content: 'Mekanisme ini menggunakan beberapa pihak tertentu yang telah dipilih dan disahkan untuk memvalidasi transaksi. Pihak-pihak ini bertindak sebagai validator dan mengatur proses konsensus. PoA umumnya digunakan dalam jaringan private atau consortium. VeChain adalah contoh blockchain yang menggunakan PoA.' }
-        ],
-        assetTypes: [
-            { id: 'bitcoin', title: 'Bitcoin (BTC)', content: 'Cryptocurrency terdesentralisasi pertama, diperkenalkan 2008 oleh Satoshi Nakamoto. Dirancang sebagai sistem kas elektronik peer-to-peer dan berkembang menjadi penyimpan nilai ("emas digital"). Total pasokan dibatasi 21 juta koin untuk menghindari inflasi. Transaksi dikonfirmasi dalam hitungan menit (sekitar 7 TPS). Peristiwa seperti Halving dan peluncuran ETF Spot Bitcoin mendorong adopsi institusional yang semakin luas.' },
-            { id: 'ethereum', title: 'Ethereum (ETH)', content: 'Blockchain terdesentralisasi dengan fungsionalitas kontrak pintar (smart contract), digagas 2013 oleh Vitalik Buterin. Memungkinkan pengembangan aplikasi terdesentralisasi (dApps), DeFi, dan NFT. Beralih dari PoW ke PoS ("The Merge") pada September 2022, mengurangi penggunaan energi hingga 99%. Transaksi dikonfirmasi dalam hitungan detik (sekitar 15-30 TPS). Diposisikan sebagai "fondasi untuk Web3".' },
-            { id: 'stablecoin', title: 'Stablecoin', content: 'Jenis cryptocurrency yang dirancang untuk mempertahankan nilai yang stabil dengan menambatkannya pada referensi eksternal (misal: Dolar AS, emas, atau mata uang fiat lainnya). Tujuan utama adalah menyediakan alternatif terhadap volatilitas harga kripto. Manfaat: Safe Haven, Alat Pembayaran stabil, Memfasilitasi Perdagangan. Kekurangan: Tidak sepenuhnya desentralisasi, kurang transparansi penjaminan aset, regulasi minimal.' },
-            { id: 'nft', title: 'Non-Fungible Token (NFT)', content: 'Aset digital unik seperti karya seni, konten digital, musik, video, atau koleksi yang telah ditokenisasi melalui blockchain. Setiap NFT memiliki kode identifikasi unik dan tidak dapat dipertukarkan langsung satu sama lain. Potensi: Mendefinisikan ulang kepemilikan digital, merepresentasikan identitas, hak properti, dan mempersulit pemalsuan. Contoh: Seni digital, koleksi trading card, nama domain, musik, dan virtual real estate.' },
-            { id: 'defi', title: 'Decentralized Finance (DeFi)', content: 'Ekosistem aplikasi keuangan yang dibangun di atas teknologi blockchain, terutama Ethereum, yang bertujuan menyediakan layanan keuangan tanpa perantara tradisional seperti bank. Semua proses dijalankan otomatis oleh kontrak pintar. Contoh: DEXs (Uniswap, SushiSwap), Platform Pinjam-Meminjam (Aave, Compound), Protokol Pengelolaan Aset (Yearn Finance), dan Yield Farming.' }
-        ],
-        infrastructure: [
-            { title: 'Layer 1: Jaringan Dasar dan Keamanan', content: 'Layer 1 mengacu pada infrastruktur dasar atau "mainnet" dari sebuah blockchain. Ini adalah lapisan fundamental yang mendukung semua transaksi on-chain dan bertindak sebagai sumber kebenaran. Protokol Layer 1 memiliki fungsionalitas inti, seperti memproses dan menyelesaikan transaksi secara mandiri, mendefinisikan aturan jaringan, menyediakan keamanan kriptografi, dan menjalankan mekanisme konsensus. Contoh: Bitcoin, Ethereum, Solana, Cardano, Polkadot.' },
-            { title: 'Layer 2: Solusi Skalabilitas dan Efisiensi', content: 'Layer 2 adalah solusi penskalaan yang dibangun di atas blockchain Layer 1. Tujuannya adalah mengatasi tantangan skalabilitas Layer 1, memungkinkan transaksi yang lebih cepat dan murah tanpa memodifikasi lapisan dasar. Bekerja dengan memproses transaksi di luar blockchain utama (off-chain) kemudian menyinkronkan hasilnya ke Layer 1. Contoh: Rollups (Optimistic Rollups, ZK-Rollups), Sidechains (Polygon), State Channels (Lightning Network). Kelebihan: Skalabilitas tinggi, biaya transaksi lebih rendah, pengalaman pengguna lebih baik, tetap mempertahankan keamanan Layer 1.' }
-        ],
-        platformsWallets: [
-            { title: 'Bursa Kripto (Exchange)', content: 'Platform digital di mana pengguna dapat membeli, menjual, dan menukar berbagai jenis cryptocurrency. Berfungsi sebagai pasar di mana harga aset ditentukan oleh penawaran dan permintaan dari pengguna. Jenis: Centralized Exchange (CEX) dan Decentralized Exchange (DEX). Contoh global: Binance, Bybit, Coinbase Exchange, OKX, Kraken. Contoh di Indonesia (diawasi Bappebti/OJK/BI): Tokocrypto, Triv, Rekeningku. Penting memilih platform resmi dan terdaftar untuk keamanan dana.' },
-            { title: 'Hot Wallets (Dompet Panas)', content: 'Dompet perangkat lunak yang selalu terhubung ke internet untuk kemudahan akses dan transaksi. Kunci pribadi disimpan pada perangkat yang terhubung ke internet seperti smartphone atau komputer. Kelebihan: Kemudahan penggunaan, kecepatan transaksi tinggi, umumnya gratis, cocok untuk trading aktif. Kekurangan: Lebih rentan terhadap ancaman siber (peretasan, phishing, malware) karena selalu online. Contoh: MetaMask, Coinbase Wallet, Trust Wallet, Exodus Wallet, Phantom Wallet.' },
-            { title: 'Cold Wallets (Dompet Dingin)', content: 'Dompet perangkat keras atau metode penyimpanan offline yang tidak terhubung ke internet, memberikan keamanan maksimal. Kunci pribadi disimpan dalam perangkat keras khusus atau media offline. Kelebihan: Keamanan sangat tinggi karena offline, ideal untuk penyimpanan jangka panjang dana besar, tahan terhadap serangan online. Kekurangan: Kurang nyaman untuk transaksi sering, umumnya berbayar, risiko fisik (hilang/rusak). Contoh: Hardware Wallets (Ledger, Trezor, Tangem), Paper Wallets, Deep Cold Storage.' },
-            { title: 'Web3 Wallets (Dompet Web3)', content: 'Dompet digital yang dirancang khusus untuk dunia keuangan terdesentralisasi (DeFi) dan Web3. Berfungsi sebagai gateway untuk berinteraksi dengan jaringan blockchain dan aplikasi terdesentralisasi (dApps). Jenis: Non-Custodial (pengguna mengontrol kunci pribadi), Custodial (pihak ketiga mengelola kunci), Smart Contract Wallets (dikendalikan oleh smart contract). Fitur: Koneksi ke dApps, swap token, NFT management, multi-chain support. Keamanan: Enkripsi kuat, peringatan potensi bahaya, transaction simulation.' }
-        ],
-        aiBigDataIntegration: [
-            { title: 'Sinergi Blockchain, AI, dan Big Data', content: 'Integrasi Big Data dan blockchain menjadi vital untuk menciptakan proses yang transparan dan berkelanjutan. Blockchain menyediakan infrastruktur data yang aman, tidak dapat diubah, dan transparan untuk menyimpan informasi. Big Data menawarkan kemampuan mengumpulkan, menyimpan, dan menganalisis volume informasi yang sangat besar dari berbagai sumber. AI memanfaatkan data terverifikasi dari blockchain untuk melakukan analisis canggih, prediksi yang akurat, dan otomatisasi proses bisnis. Konvergensi ketiga teknologi ini berpotensi membuka tingkat otomatisasi, efisiensi, dan model bisnis baru yang revolusioner.' },
-            { title: 'Dampak dan Contoh Implementasi di Masa Depan', content: 'Sektor Keuangan: Analisis Pasar Prediktif (AI menganalisis data blockchain untuk prediksi harga), Otomatisasi Perdagangan (algoritma AI mengotomatiskan strategi perdagangan). Rantai Pasok: Pelacakan Transparan (blockchain melacak perjalanan produk, AI menganalisis data untuk optimasi efisiensi). Kesehatan: Manajemen Data Pasien Aman (blockchain untuk rekam medis, AI menganalisis data anonim untuk diagnosis dan penelitian). Identitas Digital: Sistem Identitas Mandiri (blockchain dan AI untuk verifikasi identitas digital yang aman). Lingkungan: AI dapat mengoptimalkan konsumsi energi dalam operasional blockchain dan pusat data.' },
-            { title: 'Tantangan dan Considerations', content: 'Meskipun potensi integrasi ini sangat besar, ada tantangan signifikan yang harus dihadapi. Kompleksitas Teknis: Integrasi tiga teknologi canggih memerlukan expertise tinggi dan infrastruktur yang robust. Masalah Regulasi: Kurangnya framework hukum yang jelas untuk teknologi emerging ini. Interoperabilitas: Kebutuhan akan standar yang memungkinkan berbagai sistem berkomunikasi. Privasi vs Transparansi: Keseimbangan antara transparansi blockchain dan privasi data AI. Skalabilitas: Memastikan sistem dapat menangani volume data dan transaksi yang massive. Energy Consumption: Mengelola konsumsi energi dari ketiga teknologi yang intensif komputasi.' }
-        ]
-    };
-
-    // Utility Functions
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Configuration and Data
+            const config = {
+                animationDuration: 300,
+                chartDelay: 1000
             };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
 
-    function smoothScrollTo(element) {
-        element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-    }
+            // Data for Crypto Adoption Chart
+            const adoptionChartData = {
+                labels: ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024 (Estimasi)'],
+                datasets: [{
+                    label: 'Jumlah Pemilik Aset Kripto Global',
+                    data: [5, 10, 20, 40, 100, 200, 300, 425, 560], // Data dalam juta orang
+                    backgroundColor: 'rgba(100, 255, 218, 0.7)',
+                    borderColor: '#64FFDA',
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    barPercentage: 0.7
+                }]
+            };
 
-    // Mobile Menu Management
-    function initMobileMenu() {
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const closeMobileMenu = document.getElementById('closeMobileMenu');
-        const menuIcon = document.getElementById('menuIcon');
+            // Data for Accordions and Tabs
+            const contentData = {
+                cryptoCharacteristics: [
+                    { title: 'Terenkripsi (Kriptografi)', content: 'Keamanan cryptocurrency dijamin oleh kriptografi canggih. Pengguna menggunakan kode unik untuk menyelesaikan transaksi, dan identitas asli mereka tidak diungkapkan, memberikan tingkat privasi dan keamanan yang tinggi.' },
+                    { title: 'Terdesentralisasi', content: 'Tidak dikelola oleh server pusat atau otoritas tunggal seperti bank sentral. Jaringan terdiri dari ribuan atau jutaan komputer (node) yang tersebar di seluruh dunia, dan setiap node memiliki salinan identik dari seluruh buku besar transaksi.' },
+                    { title: 'Trustless', content: 'Pengguna dapat melakukan transaksi tanpa perlu saling mempercayai atau memercayakan uang atau informasi kepada pihak ketiga. Kepercayaan dibangun melalui mekanisme kriptografi dan konsensus jaringan itu sendiri.' },
+                    { title: 'Volatilitas Tinggi', content: 'Dikenal memiliki volatilitas harga yang sangat tinggi. Nilainya dapat naik atau turun secara drastis dalam waktu singkat, menjadikannya aset berisiko tinggi untuk investasi.' },
+                    { title: 'Transparansi dan Immutability', content: 'Semua transaksi tercatat secara permanen dan transparan pada blockchain, yang tidak dapat diubah atau dihapus. Ini memastikan integritas data dan meminimalkan risiko penipuan.' }
+                ],
+                blockchainPillars: [
+                    { title: 'Desentralisasi', content: 'Blockchain beroperasi tanpa otoritas pusat. Ini berarti tidak ada satu entitas pun yang memiliki kendali penuh atas jaringan, sehingga mengurangi risiko sensor, manipulasi, atau kegagalan tunggal.' },
+                    { title: 'Transparansi', content: 'Semua transaksi yang dicatat di blockchain bersifat publik dan dapat diverifikasi oleh siapa saja di jaringan. Meskipun identitas pengguna bersifat pseudonim, riwayat transaksi dapat dilacak, memastikan akuntabilitas.' },
+                    { title: 'Immutability (Tidak Dapat Diubah)', content: 'Setelah sebuah transaksi dicatat dan divalidasi dalam sebuah blok, transaksi tersebut tidak dapat diubah atau dihapus. Ini menciptakan catatan yang tidak dapat dirusak dan sangat aman.' },
+                    { title: 'Keamanan Kriptografi', content: 'Setiap blok dalam blockchain diamankan menggunakan teknik kriptografi canggih. Ini memastikan bahwa data yang tersimpan aman dari peretasan dan manipulasi.' }
+                ],
+                consensusMechanisms: [
+                    { id: 'pow', title: 'Proof of Work (PoW)', content: 'PoW adalah mekanisme konsensus asli yang digunakan oleh Bitcoin. Penambang bersaing untuk memecahkan teka-teki kriptografi yang kompleks untuk memvalidasi blok baru dan menambahkannya ke blockchain. Proses ini membutuhkan daya komputasi yang besar.' },
+                    { id: 'pos', title: 'Proof of Stake (PoS)', content: 'PoS memilih validator blok berdasarkan jumlah koin atau token yang mereka miliki dan "pertaruhkan" (stake) sebagai jaminan. Semakin banyak koin yang di-stake, semakin besar kemungkinan mereka dipilih untuk memvalidasi blok dan menerima hadiah. Ethereum kini menggunakan PoS setelah beralih dari PoW.' },
+                    { id: 'dpos', title: 'Delegated Proof of Stake (DPoS)', content: 'DPoS adalah varian dari PoS yang memilih sekelompok validator terpercaya. Pemegang koin atau token dapat memilih validator yang akan mewakili mereka dalam proses konsensus. Sistem ini lebih cepat dan efisien. EOS adalah contoh blockchain yang menggunakan DPoS.' },
+                    { id: 'poa', title: 'Proof of Authority (PoA)', content: 'Mekanisme ini menggunakan beberapa pihak tertentu yang telah dipilih dan disahkan untuk memvalidasi transaksi. Pihak-pihak ini bertindak sebagai validator dan mengatur proses konsensus. PoA umumnya digunakan dalam jaringan blockchain privat atau konsorsium.' }
+                ],
+                assetTypes: [
+                    { id: 'cryptocurrencies', title: 'Cryptocurrency (Mata Uang Digital)', content: 'Ini adalah jenis aset kripto yang paling dikenal, dirancang untuk berfungsi sebagai alat tukar. Contoh paling terkenal adalah Bitcoin (BTC) dan Ethereum (ETH). Mereka digunakan untuk transaksi, menyimpan nilai, dan sebagai dasar untuk aplikasi terdesentralisasi (dApps).' },
+                    { id: 'stablecoins', title: 'Stablecoin', content: 'Stablecoin adalah jenis cryptocurrency yang nilainya dipatok (pegged) ke aset yang lebih stabil, seperti mata uang fiat (misalnya USD), emas, atau komoditas lainnya. Tujuannya adalah untuk mengurangi volatilitas harga yang ekstrem. Contoh: USDT, USDC, BUSD.' },
+                    { id: 'utility-tokens', title: 'Utility Token', content: 'Utility token memberikan akses ke produk atau layanan tertentu dalam ekosistem blockchain. Mereka bukan investasi dalam arti tradisional, melainkan "kupon digital" yang memungkinkan pengguna untuk berinteraksi dengan platform atau dApps. Contoh: Filecoin (FIL) untuk penyimpanan data, Basic Attention Token (BAT) untuk iklan digital.' },
+                    { id: 'security-tokens', title: 'Security Token', content: 'Security token adalah representasi digital dari aset dunia nyata (seperti saham perusahaan, real estat, atau obligasi) yang diperdagangkan di blockchain. Mereka tunduk pada regulasi sekuritas dan memberikan hak kepemilikan atau dividen kepada pemegangnya.' },
+                    { id: 'nfts', title: 'Non-Fungible Token (NFT)', content: 'NFT adalah aset digital unik yang tidak dapat diganti satu sama lain. Setiap NFT memiliki identitas unik yang tercatat di blockchain, menjadikannya ideal untuk merepresentasikan kepemilikan atas barang digital seperti karya seni, musik, item game, atau koleksi digital. Contoh: CryptoPunks, Bored Ape Yacht Club.' }
+                ],
+                infrastructure: [
+                    { title: 'Layer 1: Jaringan Dasar dan Keamanan', content: 'Layer 1 mengacu pada infrastruktur dasar atau "mainnet" dari sebuah blockchain. Ini adalah lapisan fundamental yang mendukung semua transaksi on-chain dan bertindak sebagai sumber kebenaran. Protokol Layer 1 memiliki fungsionalitas inti, seperti memproses dan menyelesaikan transaksi secara mandiri, mendefinisikan aturan jaringan, menyediakan keamanan kriptografi, dan menjalankan mekanisme konsensus. Contoh: Bitcoin, Ethereum, Solana, Cardano, Polkadot.' },
+                    { title: 'Layer 2: Solusi Skalabilitas dan Efisiensi', content: 'Layer 2 adalah solusi penskalaan yang dibangun di atas blockchain Layer 1. Tujuannya adalah mengatasi tantangan skalabilitas Layer 1, memungkinkan transaksi yang lebih cepat dan murah tanpa memodifikasi lapisan dasar. Bekerja dengan memproses transaksi di luar blockchain utama (off-chain) kemudian menyinkronkan hasilnya ke Layer 1. Contoh: Rollups (Optimistic Rollups, ZK-Rollups), Sidechains (Polygon), State Channels (Lightning Network).' },
+                    { title: 'Layer 0: Fondasi Interoperabilitas', content: 'Layer 0 adalah lapisan infrastruktur yang mendasari Layer 1 blockchain. Ini berfokus pada protokol, konektivitas, dan standar yang memungkinkan berbagai blockchain untuk berinteraksi satu sama lain (interoperabilitas). Layer 0 memungkinkan pengembang untuk membangun blockchain baru di atasnya dengan mudah. Contoh: Polkadot, Cosmos.' }
+                ],
+                platformsWallets: [
+                    { title: 'Exchange (Bursa Kripto)', content: 'Bursa kripto adalah platform online tempat pengguna dapat membeli, menjual, dan memperdagangkan berbagai jenis cryptocurrency. Bursa ini berfungsi sebagai perantara antara pembeli dan penjual, menyediakan likuiditas dan fitur perdagangan. Contoh: Binance, Coinbase, Kraken, Indodax.' },
+                    { title: 'Dompet Kripto (Wallets)', content: 'Dompet kripto adalah perangkat lunak atau perangkat keras yang memungkinkan pengguna untuk menyimpan, mengirim, dan menerima cryptocurrency. Dompet ini tidak benar-benar menyimpan koin itu sendiri, melainkan menyimpan kunci privat (private keys) yang diperlukan untuk mengakses dan mengelola aset di blockchain.' },
+                    { title: 'Jenis Dompet Kripto', content: 'Terdapat dua kategori utama dompet kripto: Hot Wallets (terhubung ke internet, seperti dompet web, mobile, desktop) yang nyaman tetapi kurang aman, dan Cold Wallets (tidak terhubung ke internet, seperti hardware wallets, paper wallets) yang lebih aman tetapi kurang praktis untuk transaksi harian. Pemilihan dompet bergantung pada kebutuhan keamanan dan kenyamanan pengguna.' }
+                ],
+                aiBigDataIntegration: [
+                    { title: 'Sinergi Blockchain, AI, dan Big Data', content: 'Integrasi Big Data dan blockchain menjadi vital untuk menciptakan proses yang transparan dan berkelanjutan. Blockchain menyediakan infrastruktur data yang aman, tidak dapat diubah, dan transparan untuk menyimpan informasi. Big Data menawarkan kemampuan mengumpulkan, menyimpan, dan menganalisis volume informasi yang sangat besar dari berbagai sumber. AI memanfaatkan data terverifikasi dari blockchain untuk melakukan analisis canggih, prediksi yang akurat, dan otomatisasi proses bisnis. Konvergensi ketiga teknologi ini berpotensi membuka tingkat otomatisasi, efisiensi, dan model bisnis baru yang revolusioner.' },
+                    { title: 'Dampak dan Contoh Implementasi di Masa Depan', content: 'Sektor Keuangan: Analisis Pasar Prediktif (AI menganalisis data blockchain untuk prediksi harga), Otomatisasi Perdagangan (algoritma AI mengotomatiskan strategi perdagangan). Rantai Pasok: Pelacakan Transparan (blockchain melacak produk dengan AI untuk efisiensi). Kesehatan: Manajemen Data Pasien (blockchain untuk keamanan data, AI untuk analisis). Identitas Digital: Verifikasi Identitas (blockchain untuk identitas, AI untuk deteksi penipuan). Kota Pintar: Optimasi Infrastruktur (blockchain untuk data sensor, AI untuk efisiensi energi).' }
+                ]
+            };
 
-        function toggleMenu() {
-            mobileMenu.classList.toggle('open');
-            menuIcon.textContent = mobileMenu.classList.contains('open') ? '×' : '☰';
-        }
-
-        function closeMenu() {
-            mobileMenu.classList.remove('open');
-            menuIcon.textContent = '☰';
-        }
-
-        mobileMenuBtn?.addEventListener('click', toggleMenu);
-        closeMobileMenu?.addEventListener('click', closeMenu);
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                closeMenu();
+            // Utility Functions
+            function debounce(func, delay) {
+                let timeout;
+                return function(...args) {
+                    const context = this;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(context, args), delay);
+                };
             }
-        });
 
-        // Close menu when clicking on nav links
-        mobileMenu.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', closeMenu);
-        });
-    }
+            // Mobile Menu Management
+            function initMobileMenu() {
+                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                const mobileMenu = document.getElementById('mobileMenu');
+                const closeMobileMenu = document.getElementById('closeMobileMenu');
+                const menuIcon = document.getElementById('menuIcon'); // Pastikan ID ini ada di HTML
 
-    // Scroll Progress Indicator
-    function initScrollIndicator() {
-        const scrollIndicator = document.getElementById('scrollIndicator');
-        
-        function updateScrollProgress() {
-            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-            scrollIndicator.style.width = `${Math.min(scrollPercent, 100)}%`;
-        }
-
-        window.addEventListener('scroll', debounce(updateScrollProgress, 10));
-    }
-
-    // Accordion Component
-    function createAccordion(containerId, data) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-
-        container.innerHTML = ''; // Clear existing content
-        
-        data.forEach((item, index) => {
-            const div = document.createElement('div');
-            div.className = 'accordion-item bg-[#112240] rounded-lg shadow-sm border border-[#233554] overflow-hidden';
-            div.innerHTML = `
-                <button class="accordion-header w-full flex justify-between items-center p-4 md:p-6 text-left hover:bg-[rgba(100,255,218,0.05)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#64FFDA]" 
-                        aria-expanded="false" 
-                        aria-controls="accordion-content-${containerId}-${index}">
-                    <h4 class="font-semibold text-lg md:text-xl text-[#CCD6F6] pr-4">${item.title}</h4>
-                    <span class="accordion-icon text-[#64FFDA] text-2xl font-light flex-shrink-0" aria-hidden="true">+</span>
-                </button>
-                <div id="accordion-content-${containerId}-${index}" class="accordion-content border-t border-[#233554]" role="region" aria-labelledby="accordion-header-${containerId}-${index}">
-                    <p class="text-[#8892B0] leading-relaxed">${item.content}</p>
-                </div>
-            `;
-            container.appendChild(div);
-        });
-
-        container.addEventListener('click', (e) => {
-            const header = e.target.closest('.accordion-header');
-            if (header) {
-                e.preventDefault();
-                const content = header.nextElementSibling;
-                const icon = header.querySelector('.accordion-icon');
-                const isOpen = content.classList.contains('open');
-
-                // Close all other accordions in the same container (optional)
-                // container.querySelectorAll('.accordion-content.open').forEach(item => {
-                //     if (item !== content) {
-                //         item.classList.remove('open');
-                //         item.style.maxHeight = '0px';
-                //         item.previousElementSibling.querySelector('.accordion-icon').classList.remove('rotate');
-                //         item.previousElementSibling.setAttribute('aria-expanded', 'false');
-                //     }
-                // });
-
-                if (!isOpen) {
-                    content.classList.add('open');
-                    content.style.maxHeight = content.scrollHeight + 'px';
-                    icon.classList.add('rotate');
-                    header.setAttribute('aria-expanded', 'true');
-                    
-                    // Allow content to grow if dynamically changed
-                    content.addEventListener('transitionend', function handler() {
-                        if (content.classList.contains('open')) {
-                            content.style.maxHeight = 'none';
-                        }
-                        content.removeEventListener('transitionend', handler);
-                    });
-                } else {
-                    content.style.maxHeight = content.scrollHeight + 'px';
-                    requestAnimationFrame(() => {
-                        content.style.maxHeight = '0px';
-                        content.classList.remove('open');
-                        icon.classList.remove('rotate');
-                        header.setAttribute('aria-expanded', 'false');
-                    });
-                }
-            }
-        });
-    }
-
-    // Tabs Component
-    function createTabs(tabContainerId, contentContainerId, data) {
-        const tabContainer = document.getElementById(tabContainerId);
-        const contentContainer = document.getElementById(contentContainerId);
-        if (!tabContainer || !contentContainer) return;
-
-        // Clear existing content
-        tabContainer.innerHTML = '';
-        contentContainer.innerHTML = '';
-
-        data.forEach((item, index) => {
-            // Create tab button
-            const button = document.createElement('button');
-            button.className = `tab-button ${index === 0 ? 'active' : ''}`;
-            button.dataset.tab = item.id;
-            button.textContent = item.title;
-            button.setAttribute('role', 'tab');
-            button.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
-            button.setAttribute('aria-controls', `tab-content-${item.id}`);
-            tabContainer.appendChild(button);
-
-            // Create tab content
-            const div = document.createElement('div');
-            div.id = `tab-content-${item.id}`;
-            div.className = `tab-content ${index === 0 ? 'active' : ''}`;
-            div.setAttribute('role', 'tabpanel');
-            div.setAttribute('aria-labelledby', `tab-${item.id}`);
-            div.innerHTML = `<p class="text-[#8892B0] leading-relaxed">${item.content}</p>`;
-            contentContainer.appendChild(div);
-        });
-
-        tabContainer.addEventListener('click', (e) => {
-            const button = e.target.closest('.tab-button');
-            if (button) {
-                // Deactivate current active tab
-                const currentActive = tabContainer.querySelector('.tab-button.active');
-                const currentContent = contentContainer.querySelector('.tab-content.active');
-                
-                if (currentActive) {
-                    currentActive.classList.remove('active');
-                    currentActive.setAttribute('aria-selected', 'false');
-                }
-                if (currentContent) {
-                    currentContent.classList.remove('active');
+                function toggleMenu() {
+                    mobileMenu.classList.toggle('open');
+                    menuIcon.textContent = mobileMenu.classList.contains('open') ? '×' : '☰';
                 }
 
-                // Activate new tab
-                button.classList.add('active');
-                button.setAttribute('aria-selected', 'true');
-                const newContent = document.getElementById(`tab-content-${button.dataset.tab}`);
-                if (newContent) {
-                    newContent.classList.add('active');
+                function closeMenu() {
+                    mobileMenu.classList.remove('open');
+                    menuIcon.textContent = '☰';
                 }
-            }
-        });
 
-        // Keyboard navigation for tabs
-        tabContainer.addEventListener('keydown', (e) => {
-            const tabs = [...tabContainer.querySelectorAll('.tab-button')];
-            const currentIndex = tabs.findIndex(tab => tab === document.activeElement);
-            
-            if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-                e.preventDefault();
-                let newIndex;
-                
-                if (e.key === 'ArrowRight') {
-                    newIndex = currentIndex < tabs.length - 1 ? currentIndex + 1 : 0;
-                } else {
-                    newIndex = currentIndex > 0 ? currentIndex - 1 : tabs.length - 1;
-                }
-                
-                tabs[newIndex].focus();
-                tabs[newIndex].click();
-            }
-        });
-    }
+                mobileMenuBtn?.addEventListener('click', toggleMenu);
+                closeMobileMenu?.addEventListener('click', closeMenu);
 
-    // Chart Rendering with Error Handling
-    function renderAdoptionChart() {
-        const chartContainer = document.getElementById('chartContainer');
-        const skeleton = document.getElementById('chartSkeleton');
-        const canvas = document.getElementById('adoptionChart');
-        const errorDiv = document.getElementById('chartError');
-
-        if (!canvas || !chartContainer) return;
-
-        // Show skeleton loading
-        skeleton.style.display = 'block';
-        canvas.style.display = 'none';
-        errorDiv.style.display = 'none';
-
-        setTimeout(() => {
-            try {
-                const ctx = canvas.getContext('2d');
-                
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: adoptionChartData.labels,
-                        datasets: [{
-                            label: 'Jumlah Pemilik Aset Kripto (Juta)',
-                            data: adoptionChartData.data,
-                            backgroundColor: adoptionChartData.backgroundColor,
-                            borderColor: adoptionChartData.borderColor,
-                            borderWidth: 2,
-                            borderRadius: 8,
-                            borderSkipped: false,
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                display: false
-                            },
-                            tooltip: {
-                                backgroundColor: 'rgba(17, 34, 64, 0.95)',
-                                titleColor: '#CCD6F6',
-                                bodyColor: '#8892B0',
-                                borderColor: '#64FFDA',
-                                borderWidth: 1,
-                                callbacks: {
-                                    label: function(context) {
-                                        return ` ${context.raw} Juta Orang`;
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                title: {
-                                    display: true,
-                                    text: 'Jumlah Pemilik (Juta)',
-                                    color: '#8892B0'
-                                },
-                                ticks: {
-                                    color: '#8892B0'
-                                },
-                                grid: {
-                                    color: 'rgba(35, 53, 84, 0.5)'
-                                }
-                            },
-                            x: {
-                                title: {
-                                    display: true,
-                                    text: 'Tahun',
-                                    color: '#8892B0'
-                                },
-                                ticks: {
-                                    color: '#8892B0',
-                                    maxRotation: 45,
-                                    minRotation: 0
-                                },
-                                grid: {
-                                    color: 'rgba(35, 53, 84, 0.5)'
-                                }
-                            }
-                        },
-                        animation: {
-                            duration: 1500,
-                            easing: 'easeOutQuart'
-                        }
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && mobileMenu.classList.contains('open')) {
+                        closeMenu();
                     }
                 });
 
-                // Hide skeleton and show chart
-                skeleton.style.display = 'none';
-                canvas.style.display = 'block';
-
-            } catch (error) {
-                console.error('Chart rendering failed:', error);
-                skeleton.style.display = 'none';
-                errorDiv.style.display = 'block';
+                // Close menu when a nav link is clicked
+                mobileMenu.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        closeMenu();
+                    });
+                });
             }
-        }, config.chartDelay);
-    }
 
-    // Navigation Active State Management
-    function initNavigation() {
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('section[id]');
+            // Accordion Functionality
+            function createAccordion(containerId, data) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
 
-        function updateActiveNavLink() {
-            let current = '';
-            const scrollPos = window.scrollY + 100; // Offset for header height
+                container.innerHTML = ''; // Clear existing content
 
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-                
-                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                    current = section.getAttribute('id');
-                }
-            });
+                data.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'accordion-item bg-[#112240] rounded-lg shadow-sm border border-[#233554] overflow-hidden';
+                    div.innerHTML = `
+                        <button class="accordion-header w-full flex justify-between items-center p-4 md:p-6 text-left hover:bg-[rgba(100,255,218,0.05)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#64FFDA]"
+                            aria-expanded="false"
+                            aria-controls="accordion-content-${containerId}-${index}">
+                            <h4 class="font-semibold text-lg md:text-xl text-[#CCD6F6] pr-4">${item.title}</h4>
+                            <span class="accordion-icon text-[#64FFDA] text-2xl font-light">+</span>
+                        </button>
+                        <div id="accordion-content-${containerId}-${index}" class="accordion-content" role="region" aria-labelledby="accordion-header-${containerId}-${index}">
+                            <p class="text-[#8892B0] leading-relaxed">${item.content}</p>
+                        </div>
+                    `;
+                    container.appendChild(div);
 
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (current && link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        }
+                    const header = div.querySelector('.accordion-header');
+                    const content = div.querySelector('.accordion-content');
+                    const icon = div.querySelector('.accordion-icon');
 
-        // Smooth scrolling for navigation links
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                
-                if (targetSection) {
-                    const headerHeight = document.getElementById('header').offsetHeight;
-                    const targetPosition = targetSection.offsetTop - headerHeight - 20;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
+                    header.addEventListener('click', () => {
+                        const isOpen = content.classList.contains('open');
+
+                        // Close all other open accordions in the same container
+                        container.querySelectorAll('.accordion-content.open').forEach(openContent => {
+                            if (openContent !== content) {
+                                openContent.style.maxHeight = '0px';
+                                openContent.classList.remove('open');
+                                openContent.previousElementSibling.querySelector('.accordion-icon').classList.remove('rotate');
+                                openContent.previousElementSibling.setAttribute('aria-expanded', 'false');
+                            }
+                        });
+
+                        if (!isOpen) {
+                            content.classList.add('open');
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                            icon.classList.add('rotate');
+                            header.setAttribute('aria-expanded', 'true');
+
+                            // Allow content to grow if dynamically changed
+                            content.addEventListener('transitionend', function handler() {
+                                if (content.classList.contains('open')) {
+                                    content.style.maxHeight = 'none';
+                                }
+                                content.removeEventListener('transitionend', handler);
+                            });
+                        } else {
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                            requestAnimationFrame(() => {
+                                content.style.maxHeight = '0px';
+                                content.classList.remove('open');
+                                icon.classList.remove('rotate');
+                                header.setAttribute('aria-expanded', 'false');
+                            });
+                        }
+                    });
+                });
+            }
+
+            // Tabs Functionality
+            function createTabs(tabContainerId, contentContainerId, data) {
+                const tabContainer = document.getElementById(tabContainerId);
+                const contentContainer = document.getElementById(contentContainerId);
+
+                if (!tabContainer || !contentContainer) return;
+
+                tabContainer.innerHTML = '';
+                contentContainer.innerHTML = '';
+
+                data.forEach((item, index) => {
+                    // Create tab button
+                    const button = document.createElement('button');
+                    button.id = `tab-${item.id}`;
+                    button.className = `tab-button ${index === 0 ? 'active' : ''}`;
+                    button.setAttribute('role', 'tab');
+                    button.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+                    button.setAttribute('aria-controls', `tab-content-${item.id}`);
+                    button.textContent = item.title;
+                    tabContainer.appendChild(button);
+
+                    // Create tab content
+                    const div = document.createElement('div');
+                    div.id = `tab-content-${item.id}`;
+                    div.className = `tab-content ${index === 0 ? 'active' : ''}`;
+                    div.setAttribute('role', 'tabpanel');
+                    div.setAttribute('aria-labelledby', `tab-${item.id}`);
+                    div.innerHTML = `<p class="text-[#8892B0] leading-relaxed">${item.content}</p>`;
+                    contentContainer.appendChild(div);
+                });
+
+                tabContainer.addEventListener('click', (e) => {
+                    const button = e.target.closest('.tab-button');
+                    if (button) {
+                        // Deactivate current active tab
+                        const currentActive = tabContainer.querySelector('.tab-button.active');
+                        const currentContent = contentContainer.querySelector('.tab-content.active');
+
+                        if (currentActive) {
+                            currentActive.classList.remove('active');
+                            currentActive.setAttribute('aria-selected', 'false');
+                        }
+                        if (currentContent) {
+                            currentContent.classList.remove('active');
+                        }
+
+                        // Activate new tab
+                        button.classList.add('active');
+                        button.setAttribute('aria-selected', 'true');
+                        const targetContentId = button.getAttribute('aria-controls');
+                        document.getElementById(targetContentId).classList.add('active');
+                    }
+                });
+
+                // Keyboard navigation for tabs (Accessibility)
+                tabContainer.addEventListener('keydown', (e) => {
+                    const tabs = Array.from(tabContainer.querySelectorAll('.tab-button'));
+                    const currentIndex = tabs.indexOf(document.activeElement);
+                    let newIndex = -1;
+
+                    if (e.key === 'ArrowRight') {
+                        newIndex = currentIndex < tabs.length - 1 ? currentIndex + 1 : 0;
+                    } else if (e.key === 'ArrowLeft') {
+                        newIndex = currentIndex > 0 ? currentIndex - 1 : tabs.length - 1;
+                    }
+
+                    if (newIndex !== -1) {
+                        e.preventDefault();
+                        tabs[newIndex].focus();
+                        tabs[newIndex].click();
+                    }
+                });
+            }
+
+            // Chart Rendering with Error Handling
+            function renderAdoptionChart() {
+                const chartContainer = document.getElementById('chartContainer');
+                const skeleton = document.getElementById('chartSkeleton');
+                const canvas = document.getElementById('adoptionChart');
+                const errorDiv = document.getElementById('chartError');
+
+                if (!canvas || !chartContainer) return;
+
+                // Show skeleton loading
+                skeleton.style.display = 'block';
+                canvas.style.display = 'none';
+                errorDiv.style.display = 'none';
+
+                setTimeout(() => {
+                    try {
+                        const ctx = canvas.getContext('2d');
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: adoptionChartData.labels,
+                                datasets: adoptionChartData.datasets
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        display: false
+                                    },
+                                    tooltip: {
+                                        backgroundColor: 'rgba(17, 34, 64, 0.95)',
+                                        titleColor: '#CCD6F6',
+                                        bodyColor: '#8892B0',
+                                        borderColor: '#64FFDA',
+                                        borderWidth: 1,
+                                        callbacks: {
+                                            label: function(context) {
+                                                return ` ${context.raw} Juta Orang`;
+                                            }
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        title: {
+                                            display: true,
+                                            text: 'Jumlah Pemilik (Juta)',
+                                            color: '#8892B0'
+                                        },
+                                        ticks: {
+                                            color: '#8892B0'
+                                        },
+                                        grid: {
+                                            color: 'rgba(35, 53, 84, 0.5)'
+                                        }
+                                    },
+                                    x: {
+                                        title: {
+                                            display: true,
+                                            text: 'Tahun',
+                                            color: '#8892B0'
+                                        },
+                                        ticks: {
+                                            color: '#8892B0'
+                                        },
+                                        grid: {
+                                            display: false
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        // Hide skeleton and show chart
+                        skeleton.style.display = 'none';
+                        canvas.style.display = 'block';
+                    } catch (error) {
+                        console.error('Chart rendering failed:', error);
+                        skeleton.style.display = 'none';
+                        errorDiv.style.display = 'block';
+                    }
+                }, config.chartDelay);
+            }
+
+            // Navigation Active State Management
+            function initNavigation() {
+                const navLinks = document.querySelectorAll('.nav-link');
+                const sections = document.querySelectorAll('section[id]');
+
+                function updateActiveNavLink() {
+                    let current = '';
+                    const scrollPos = window.scrollY + 100; // Offset for header height
+
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop;
+                        const sectionHeight = section.offsetHeight;
+                        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                            current = section.getAttribute('id');
+                        }
+                    });
+
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').includes(current)) {
+                            link.classList.add('active');
+                        }
                     });
                 }
-            });
+
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetSection = document.getElementById(targetId);
+                        if (targetSection) {
+                            const headerHeight = document.getElementById('header').offsetHeight;
+                            const targetPosition = targetSection.offsetTop - headerHeight - 20;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+
+                window.addEventListener('scroll', debounce(updateActiveNavLink, 100));
+                updateActiveNavLink(); // Initial call
+            }
+
+            // Scroll Progress Indicator
+            function initScrollIndicator() {
+                const scrollIndicator = document.getElementById('scrollIndicator');
+                if (!scrollIndicator) return;
+
+                window.addEventListener('scroll', () => {
+                    const scrollTop = document.documentElement.scrollTop;
+                    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    const scrolled = (scrollTop / scrollHeight) * 100;
+                    scrollIndicator.style.width = scrolled + '%';
+                });
+            }
+
+            // Performance Optimization: Intersection Observer for Animations
+            function initAnimationObserver() {
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                            observer.unobserve(entry.target); // Stop observing once animated
+                        }
+                    });
+                }, observerOptions);
+
+                document.querySelectorAll('section, .card').forEach(element => {
+                    element.style.opacity = '0';
+                    element.style.transform = 'translateY(20px)';
+                    element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                    observer.observe(element);
+                });
+            }
+
+            try {
+                initMobileMenu();
+                initScrollIndicator();
+                initNavigation();
+
+                // Create interactive components
+                createAccordion('crypto-characteristics-accordion', contentData.cryptoCharacteristics);
+                createAccordion('blockchain-pillars-accordion', contentData.blockchainPillars);
+                createTabs('consensus-tabs', 'consensus-content', contentData.consensusMechanisms);
+                createTabs('asset-tabs', 'asset-content', contentData.assetTypes);
+                createAccordion('infrastructure-accordion', contentData.infrastructure);
+                createAccordion('platforms-wallets-accordion', contentData.platformsWallets);
+                createAccordion('ai-bigdata-accordion', contentData.aiBigDataIntegration);
+
+                // Render chart
+                renderAdoptionChart();
+
+                // Initialize animations
+                initAnimationObserver();
+
+                console.log('✅ All components initialized successfully');
+            } catch (error) {
+                console.error('Initialization failed:', error);
+            }
         });
-
-        window.addEventListener('scroll', debounce(updateActiveNavLink, 100));
-        updateActiveNavLink(); // Initial call
-    }
-
-    // Performance Optimization: Intersection Observer for Animations
-    function initAnimationObserver() {
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe cards for stagger animation
-        document.querySelectorAll('.card').forEach((card, index) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-            observer.observe(card);
-        });
-    }
-
-    // Initialize All Components
-    function init() {
-        try {
-            // Initialize core functionality
-            initMobileMenu();
-            initScrollIndicator();
-            initNavigation();
-            
-            // Create interactive components
-            createAccordion('crypto-characteristics-accordion', contentData.cryptoCharacteristics);
-            createAccordion('blockchain-pillars-accordion', contentData.blockchainPillars);
-            createTabs('consensus-tabs', 'consensus-content', contentData.consensusMechanisms);
-            createTabs('asset-tabs', 'asset-content', contentData.assetTypes);
-            createAccordion('infrastructure-accordion', contentData.infrastructure);
-            createAccordion('platforms-wallets-accordion', contentData.platformsWallets);
-            createAccordion('ai-bigdata-accordion', contentData.aiBigDataIntegration);
-            
-            // Render chart
-            renderAdoptionChart();
-            
-            // Initialize animations
-            initAnimationObserver();
-            
-            console.log('✅ All components initialized successfully');
-        } catch (error) {
-            console.error('❌ Initialization failed:', error);
-        }
-    }
-
-    // Run initialization
-    init();
-
-    // Handle window resize for responsive chart
-    window.addEventListener('resize', debounce(() => {
-        const chart = Chart.getChart('adoptionChart');
-        if (chart) {
-            chart.resize();
-        }
-    }, 250));
-});
-</script>
-
+    </script>
 </body>
 </html>
