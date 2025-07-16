@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis Ekosistem Kripto Interaktif</title>
+    <!-- Chosen Palette: Tech Blue (Dark Blue background, Light Gray text, Cyan accent) -->
+    <!-- Application Structure Plan: The application is structured as a single-page interactive report. It features a sticky top navigation bar for direct access to key sections: 'Pendahuluan', 'Apa Itu Kripto?', 'Mekanisme Kerja', 'Jenis Aset Kripto', 'Infrastruktur', 'Platform & Dompet', 'Kelebihan & Kekurangan', and 'Integrasi AI & Big Data'. This non-linear structure allows users to explore specific topics without strict sequential reading. Key interactive elements include accordions for detailed explanations, tabs for comparing different asset types, and a Chart.js visualization for conceptual data (e.g., market cap distribution or transaction speeds). This design aims to make complex information digestible and explorable, enhancing user understanding and engagement. -->
+    <!-- Visualization & Content Choices:
+        - Report Info: Introduction, background, and scope. -> Goal: Inform. -> Viz/Method: Hero section and introductory text. -> Interaction: None. -> Justification: Sets the stage and provides context.
+        - Report Info: Definition and characteristics of Cryptocurrency. -> Goal: Inform. -> Viz/Method: Accordions for each characteristic. -> Interaction: Click to expand/collapse. -> Justification: Breaks down complex definitions into manageable, digestible pieces.
+        - Report Info: Blockchain technology and its pillars. -> Goal: Inform. -> Viz/Method: Accordions for decentralization, transparency, immutability. -> Interaction: Click to expand/collapse. -> Justification: Explains core concepts step-by-step.
+        - Report Info: Transaction process and validation. -> Goal: Inform. -> Viz/Method: Step-by-step text explanation. -> Interaction: None. -> Justification: Clear, sequential explanation of a process.
+        - Report Info: Consensus mechanisms (PoW, PoS, DPoS, PoA). -> Goal: Compare/Inform. -> Viz/Method: Tabs for each mechanism with details. -> Interaction: Click tabs to switch content. -> Justification: Allows direct comparison and focused learning on each mechanism.
+        - Report Info: Types of Crypto Assets (Bitcoin, Ethereum, Stablecoin, NFT, DeFi). -> Goal: Inform/Compare. -> Viz/Method: Tabs for each asset type, with key features and conceptual data. -> Interaction: Click tabs to switch content. -> Justification: Organizes diverse asset types for easy comparison and exploration.
+        - Report Info: Infrastructure (Layer 1, Layer 2). -> Goal: Inform/Compare. -> Viz/Method: Accordions for each layer with explanations. -> Interaction: Click to expand/collapse. -> Justification: Clearly distinguishes and details the two layers.
+        - Report Info: Platforms for buying/storing (Exchanges, Hot/Cold/Web3 Wallets). -> Goal: Inform. -> Viz/Method: Accordions for each type. -> Interaction: Click to expand/collapse. -> Justification: Provides structured information on different storage methods.
+        - Report Info: Advantages and Disadvantages. -> Goal: Inform/Compare. -> Viz/Method: Two columns (Pros/Cons) with bullet points. -> Interaction: None. -> Justification: Clear, side-by-side comparison.
+        - Report Info: Integration with AI and Big Data, future impact. -> Goal: Inform. -> Viz/Method: Accordions for synergy, impact, and challenges. -> Interaction: Click to expand/collapse. -> Justification: Organizes forward-looking and complex topics.
+        - Report Info: Global adoption trends (number of users). -> Goal: Inform/Visualize. -> Viz/Method: Chart.js Bar Chart. -> Interaction: None (static data for illustration). -> Justification: Visually represents growth trends from the report.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A192F; /* Dark Blue */
+            color: #CCD6F6; /* Light Gray */
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #64FFDA; /* Cyan */
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #64FFDA;
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .btn-accent {
+            background-color: #64FFDA;
+            color: #0A192F;
+            transition: background-color 0.3s, transform 0.2s;
+            white-space: nowrap;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            display: inline-block;
+        }
+        .btn-accent:hover {
+            background-color: #52D8BB; /* Slightly darker Cyan */
+            transform: translateY(-2px);
+        }
+        .card {
+            background-color: #112240; /* Slightly lighter dark blue */
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #233554; /* Border color */
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        .accordion-header {
+            background-color: #172A45; /* Darker shade for header */
+            border-bottom: 1px solid #233554;
+        }
+        .accordion-item:last-child .accordion-header {
+            border-bottom: none;
+        }
+        .accordion-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.5s ease-out, padding 0.5s ease-out;
+            padding: 0 1.5rem; /* Initial horizontal padding, vertical padding is 0 */
+        }
+        .accordion-content.open {
+            opacity: 1;
+            padding: 1.5rem; /* Apply full padding when open */
+        }
+        .accordion-icon {
+            transition: transform 0.3s ease-out;
+        }
+        .accordion-icon.rotate-45 {
+            transform: rotate(45deg);
+        }
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            background-color: #233554;
+            color: #8892B0; /* Light blue-gray */
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .tab-button.active {
+            background-color: #64FFDA;
+            color: #0A192F;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header" class="bg-[#0A192F]/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-[#CCD6F6]">Kripto<span class="text-[#64FFDA]">Interaktif</span></a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#pendahuluan" class="nav-link">Pendahuluan</a>
+                <a href="#apa-itu-kripto" class="nav-link">Apa Itu Kripto?</a>
+                <a href="#mekanisme-kerja" class="nav-link">Mekanisme Kerja</a>
+                <a href="#jenis-aset-kripto" class="nav-link">Jenis Aset Kripto</a>
+                <a href="#infrastruktur" class="nav-link">Infrastruktur</a>
+                <a href="#platform-dompet" class="nav-link">Platform & Dompet</a>
+                <a href="#kelebihan-kekurangan" class="nav-link">Kelebihan & Kekurangan</a>
+                <a href="#integrasi-ai-bigdata" class="nav-link">Integrasi AI & Big Data</a>
+            </div>
+            <a href="#pendahuluan" class="hidden md:block px-6 py-2 rounded-full btn-accent">Mulai Jelajah</a>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-8 md:py-16">
+        
+        <section id="pendahuluan" class="text-center mb-24 scroll-mt-20">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">Analisis Ekosistem Cryptocurrency</h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto text-[#8892B0] mb-8">
+                Jelajahi mekanisme, jenis, infrastruktur, dan prospek masa depan mata uang digital yang mengubah lanskap keuangan global.
+            </p>
+            <a href="#apa-itu-kripto" class="px-8 py-4 rounded-full text-lg font-semibold btn-accent shadow-lg inline-block">Mulai Jelajahi Kripto</a>
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold mb-4">Pertumbuhan Adopsi Kripto Global</h3>
+                <p class="text-[#8892B0] mb-6">Jumlah pemilik aset kripto secara global terus meningkat secara signifikan.</p>
+                <div class="chart-container">
+                    <canvas id="adoptionChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="apa-itu-kripto" class="mb-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">Memahami Cryptocurrency: Definisi dan Pilar Utama</h2>
+                <p class="text-lg text-[#8892B0] max-w-3xl mx-auto mt-2">Cryptocurrency adalah bentuk mata uang digital atau virtual yang keamanannya dijamin oleh kriptografi. Semua transaksi tercatat secara permanen dan transparan pada blockchain.</p>
+            </div>
+
+            <div class="space-y-8">
+                <div class="card p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-[#CCD6F6]">A. Apa Itu Cryptocurrency?</h3>
+                    <p class="text-[#8892B0]">Cryptocurrency adalah bentuk mata uang digital atau virtual yang keamanannya dijamin oleh kriptografi, sebuah teknik enkripsi canggih yang membuatnya hampir tidak mungkin dipalsukan atau digandakan. Berbeda dengan mata uang fiat tradisional, cryptocurrency tidak memiliki bentuk fisik; seluruh proses pembelian dan pertukaran berlangsung secara digital. Semua transaksi yang dilakukan dengan cryptocurrency tercatat secara permanen dan transparan pada sebuah buku besar digital terdistribusi yang dikenal sebagai **blockchain**. Bitcoin, yang pertama kali muncul pada tahun 2008, adalah contoh paling awal dan terbesar dari jenis mata uang digital ini, yang membuka jalan bagi ribuan cryptocurrency lainnya.</p>
+                </div>
+
+                <div class="card p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-[#CCD6F6]">B. Karakteristik Kunci Cryptocurrency</h3>
+                    <div id="crypto-characteristics-accordion" class="space-y-4"></div>
+                </div>
+
+                <div class="card p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-[#CCD6F6]">C. Teknologi Blockchain: Fondasi Desentralisasi, Transparansi, dan Immutability</h3>
+                    <p class="text-[#8892B0] mb-4">Blockchain adalah teknologi pencatatan data yang revolusioner, dikenal karena sifatnya yang terdesentralisasi, transparan, dan sangat aman. Teknologi ini berfungsi layaknya buku besar digital yang mencatat semua transaksi atau data, namun tidak disimpan di satu lokasi pusat.</p>
+                    <div id="blockchain-pillars-accordion" class="space-y-4"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mekanisme-kerja" class="mb-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">III. Mekanisme Kerja Cryptocurrency</h2>
+                <p class="text-lg text-[#8892B0] max-w-3xl mx-auto mt-2">Pahami bagaimana transaksi kripto diproses dan divalidasi, serta mekanisme konsensus yang mendasarinya.</p>
+            </div>
+
+            <div class="space-y-8">
+                <div class="card p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-[#CCD6F6]">A. Proses Transaksi dan Validasi</h3>
+                    <p class="text-[#8892B0]">Transaksi cryptocurrency melibatkan jaringan komputer yang menggunakan algoritma perhitungan tertentu yang disebut kriptografi. Proses ini dimulai dengan penambang (miner) yang menjalankan node, yaitu komputer yang menjalankan perangkat lunak blockchain dan menjaga agar jaringan tetap beroperasi. Penambang kemudian mengelompokkan transaksi yang perlu diverifikasi ke dalam sebuah "blok". Tugas krusial penambang adalah memverifikasi "hash" kriptografi yang rumit dari setiap blok. Penambang pertama yang berhasil memecahkan teka-teki kriptografi tersebut akan mendapatkan hak untuk memproses blok transaksi terbaru, dan menerima hadiah. Setelah blok diverifikasi, informasi tersebut didistribusikan ke semua penambang lain, memastikan terciptanya riwayat transaksi yang tepercaya dan terverifikasi.</p>
+                </div>
+
+                <div class="card p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-[#CCD6F6]">B. Mekanisme Konsensus Utama</h3>
+                    <p class="text-[#8892B0] mb-4">Mekanisme konsensus adalah serangkaian prosedur dan aturan yang memungkinkan suatu jaringan komputer mencapai kesepakatan bersama mengenai validasi transaksi atau data tanpa memerlukan otoritas terpusat.</p>
+                    <div id="consensus-tabs" class="flex flex-wrap gap-4 mb-6"></div>
+                    <div id="consensus-content"></div>
+                </div>
+
+                <div class="card p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-[#CCD6F6]">C. Peran Penambang (Miner) dan Node</h3>
+                    <p class="text-[#8892B0]">Dalam ekosistem cryptocurrency, penambang (miner) dan node memainkan peran krusial dalam menjaga integritas dan operasional jaringan. Penambang adalah individu atau entitas yang mengoperasikan perangkat keras komputer khusus untuk memverifikasi transaksi dan memecahkan teka-teki kriptografi, menerima komisi sebagai hadiah. Node adalah komputer yang menjalankan perangkat lunak blockchain dan berfungsi untuk menjaga agar jaringan tetap berjalan, memiliki salinan identik dari seluruh buku besar transaksi. Dampak lingkungan yang terkait dengan penambangan PoW (konsumsi energi tinggi, emisi karbon, e-waste) mendorong industri mencari model yang lebih hemat energi seperti PoS.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="jenis-aset-kripto" class="mb-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">IV. Berbagai Jenis Aset Kripto</h2>
+                <p class="text-lg text-[#8892B0] max-w-3xl mx-auto mt-2">Ekosistem cryptocurrency telah berkembang jauh melampaui Bitcoin, memperkenalkan berbagai jenis aset digital dengan fungsi dan tujuan yang berbeda.</p>
+            </div>
+            <div id="asset-tabs" class="flex flex-wrap gap-4 mb-6 justify-center"></div>
+            <div id="asset-content" class="card p-8"></div>
+        </section>
+
+        <section id="infrastruktur" class="mb-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">V. Infrastruktur Blockchain: Layer 1 dan Layer 2</h2>
+                <p class="text-lg text-[#8892B0] max-w-3xl mx-auto mt-2">Pahami lapisan-lapisan yang membentuk fondasi ekosistem blockchain dan bagaimana mereka mengatasi tantangan skalabilitas.</p>
+            </div>
+            <div id="infrastructure-accordion" class="space-y-4"></div>
+        </section>
+
+        <section id="platform-dompet" class="mb-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">VI. Platform untuk Membeli dan Menyimpan Cryptocurrency</h2>
+                <p class="text-lg text-[#8892B0] max-w-3xl mx-auto mt-2">Untuk berpartisipasi dalam ekosistem cryptocurrency, pengguna memerlukan platform untuk membeli dan menjual aset digital, serta dompet untuk menyimpannya.</p>
+            </div>
+            <div id="platforms-wallets-accordion" class="space-y-4"></div>
+        </section>
+
+        <section id="kelebihan-kekurangan" class="mb-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">VII. Kelebihan dan Kekurangan Cryptocurrency</h2>
+                <p class="text-lg text-[#8892B0] max-w-3xl mx-auto mt-2">Seperti halnya teknologi baru, cryptocurrency memiliki sisi positif dan negatif yang perlu dipahami.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-[#64FFDA]">Kelebihan</h3>
+                    <ul class="list-disc list-inside text-[#8892B0] space-y-2">
+                        <li>Inklusi Keuangan: Memungkinkan akses ke layanan keuangan bagi 1,7 miliar orang yang tidak memiliki akses perbankan tradisional.</li>
+                        <li>Kemandirian Keuangan: Kontrol lebih besar atas aset tanpa intervensi lembaga keuangan tradisional.</li>
+                        <li>Peluang Bisnis Baru: Mendorong inovasi dan model bisnis baru.</li>
+                        <li>Lebih Tahan Terhadap Inflasi Moneter: Pasokan terbatas (misal Bitcoin) dirancang untuk meningkatkan nilai dan tahan inflasi.</li>
+                        <li>Transparan, Cepat, dan Praktis: Transaksi publik di blockchain, diselesaikan dalam detik/menit.</li>
+                        <li>Terlindung dari Pencurian Identitas: Transaksi tanpa mengungkapkan identitas asli.</li>
+                        <li>Mengurangi Risiko Kegagalan Sistem Tunggal: Sifat terdesentralisasi mengurangi risiko kegagalan lembaga keuangan besar.</li>
+                    </ul>
+                </div>
+                <div class="card p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-[#CD5C5C]">Kekurangan</h3>
+                    <ul class="list-disc list-inside text-[#8892B0] space-y-2">
+                        <li>Volatilitas Tinggi: Nilai dapat naik atau turun drastis dalam waktu singkat, investasi berisiko tinggi.</li>
+                        <li>Risiko Aktivitas Ilegal: Sifat pseudonim dapat dimanfaatkan untuk aktivitas ilegal.</li>
+                        <li>Transaksi Bersifat Irreversible: Setelah dikirim, transaksi tidak dapat dibatalkan.</li>
+                        <li>Kuantitas Terbatas (dapat menjadi kekurangan): Dapat menyebabkan fluktuasi harga ekstrem.</li>
+                        <li>Risiko Kehilangan Kunci Dompet: Kehilangan kunci pribadi berarti kehilangan aset permanen.</li>
+                        <li>Tidak Ada Fundamental untuk Dianalisis: Penilaian nilai sangat bergantung pada sentimen pasar.</li>
+                        <li>Tidak Ada Badan Otoritas Pusat: Kurangnya perlindungan atau jaminan dari pihak ketiga.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="integrasi-ai-bigdata" class="mb-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">VIII. Potensi Integrasi dengan AI dan Big Data</h2>
+                <p class="text-lg text-[#8892B0] max-w-3xl mx-auto mt-2">Konvergensi antara cryptocurrency, blockchain, Artificial Intelligence (AI), dan Big Data merupakan salah satu area inovasi paling menjanjikan di masa depan.</p>
+            </div>
+            <div id="ai-bigdata-accordion" class="space-y-4"></div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-[#112240] mt-24">
+        <div class="container mx-auto px-6 py-8 text-center text-[#8892B0]">
+            <p>Dibuat sebagai Analisis Interaktif Ekosistem Cryptocurrency.</p>
+            <p>&copy; 2025. Dirancang untuk pembelajaran.</p>
+        </div>
+    </footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    // Data for Crypto Adoption Chart
+    const adoptionChartData = {
+        labels: ['2021', '2022', '2023', '2024 (Jan)', '2024 (Des)', '2025 (Prediksi)'],
+        data: [100, 300, 580, 583, 659, 750], // in millions
+        backgroundColor: '#64FFDA', // Cyan
+        borderColor: '#52D8BB' // Slightly darker Cyan
+    };
+
+    // Data for Crypto Characteristics Accordion
+    const cryptoCharacteristicsData = [
+        { title: 'Digital', content: 'Cryptocurrency sepenuhnya berbentuk digital. Tidak ada koin atau uang kertas fisik yang dapat dipegang, dan semua proses transaksi, pembelian, dan pertukaran dilakukan secara elektronik.' },
+        { title: 'Global', content: 'Nilai cryptocurrency bersifat global dan tidak terikat pada batas geografis atau negara tertentu. Nilainya cenderung sama di mana pun, tidak terpengaruh oleh nilai tukar antar negara, karena tidak ada lembaga atau pemerintah yang mencetaknya.' },
+        { title: 'Peer-to-Peer', content: 'Transaksi cryptocurrency dilakukan secara langsung antara dua pihak (peer-to-peer) melalui jaringan online, tanpa memerlukan perantara seperti bank atau lembaga keuangan lainnya.' },
+        { title: 'Terenkripsi (Kriptografi)', content: 'Keamanan cryptocurrency dijamin oleh kriptografi. Pengguna menggunakan kode unik untuk menyelesaikan transaksi, dan identitas asli mereka tidak diungkapkan, memberikan tingkat privasi tertentu.' },
+        { title: 'Terdesentralisasi', content: 'Tidak dikelola oleh server pusat atau otoritas tunggal seperti bank sentral. Jaringan terdiri dari ribuan atau jutaan komputer (node) yang tersebar di seluruh dunia, dan setiap node memiliki salinan identik dari seluruh buku besar transaksi.' },
+        { title: 'Truthless/Trustless', content: 'Pengguna dapat melakukan transaksi tanpa perlu saling mempercayai atau memercayakan uang atau informasi kepada pihak ketiga. Kepercayaan dibangun melalui mekanisme kriptografi dan konsensus jaringan itu sendiri.' },
+        { title: 'Volatilitas Tinggi', content: 'Dikenal memiliki volatilitas harga yang sangat tinggi. Nilainya dapat naik atau turun secara drastis dalam waktu singkat, menjadikannya kendaraan investasi berisiko tinggi dengan potensi pengembalian tinggi.' },
+        { title: 'Kuantitas Terbatas', content: 'Banyak cryptocurrency, seperti Bitcoin, memiliki pasokan maksimum yang terbatas (misalnya, 21 juta Bitcoin). Ketersediaan yang terbatas ini dirancang untuk meningkatkan nilai aset dan melindunginya dari inflasi.' },
+        { title: 'Transaksi Irreversible', content: 'Setelah sebuah transaksi cryptocurrency dikirim dan diverifikasi di blockchain, transaksi tersebut tidak dapat dibatalkan atau dibekukan. Pengembalian dana hanya dapat dilakukan jika penerima secara sukarela mengembalikan aset digital tersebut.' },
+        { title: 'Pseudonim', content: 'Meskipun semua transaksi tercatat secara publik di blockchain, identitas sebenarnya dari pengguna atau lokasi mereka tidak diungkapkan. Pengguna diidentifikasi melalui alamat kripto, memberikan lapisan anonimitas.' }
+    ];
+
+    // Data for Blockchain Pillars Accordion
+    const blockchainPillarsData = [
+        { title: 'Desentralisasi', content: 'Inti dari filosofi blockchain adalah desentralisasi, di mana data tidak disimpan pada satu tempat atau satu entitas pusat. Jaringan terdiri dari ribuan atau jutaan komputer (node) yang tersebar di seluruh dunia, dan setiap node memiliki salinan identik dari seluruh buku besar transaksi (ledger). Ini membuat data sulit diretas karena tidak ada satu titik kegagalan.' },
+        { title: 'Transparansi', content: 'Meskipun identitas asli pengguna sering dianonimkan, semua transaksi yang terjadi di blockchain bersifat publik dan dapat dilihat oleh siapa saja. Riwayat transaksi tidak dapat dimanipulasi; tidak ada yang bisa menghapus, mengubah, atau memanipulasi data apa pun.' },
+        { title: 'Immutability (Kekekalan)', content: 'Berarti bahwa sekali data atau transaksi dicatat dan ditambahkan ke blockchain, data tersebut tidak dapat diubah, dihapus, atau dimanipulasi. Setiap blok terhubung dengan blok sebelumnya menggunakan hash kriptografi, sehingga perubahan sekecil apa pun akan merusak rantai dan segera terdeteksi.' }
+    ];
+
+    // Data for Consensus Mechanisms Tabs
+    const consensusMechanismsData = [
+        { id: 'pow', title: 'Proof of Work (PoW)', content: 'Mekanisme ini mengharuskan penambang untuk memecahkan masalah kriptografi yang kompleks dan intensif secara komputasi sebelum blok baru dapat divalidasi. Penambang yang berhasil akan diberikan hadiah. Bitcoin adalah contoh utama blockchain yang menggunakan PoW.' },
+        { id: 'pos', title: 'Proof of Stake (PoS)', content: 'PoS memilih validator blok berdasarkan jumlah koin atau token yang mereka miliki dan "pertaruhkan" (stake) sebagai jaminan. Semakin banyak koin yang di-stake, semakin besar kemungkinan mereka dipilih untuk memvalidasi blok dan menerima hadiah. Ethereum kini menggunakan PoS.' },
+        { id: 'dpos', title: 'Delegated Proof of Stake (DPoS)', content: 'DPoS adalah varian dari PoS yang memilih sekelompok validator. Pemegang koin atau token dapat memilih validator yang akan mewakili mereka dalam proses konsensus. EOS adalah contoh blockchain yang menggunakan DPoS.' },
+        { id: 'poa', title: 'Proof of Authority (PoA)', content: 'Mekanisme ini menggunakan beberapa pihak tertentu yang telah dipilih dan disahkan untuk memvalidasi transaksi. Pihak-pihak ini bertindak sebagai validator dan mengatur proses konsensus. VeChain adalah contoh blockchain yang menggunakan PoA.' }
+    ];
+
+    // Data for Crypto Asset Types Tabs
+    const assetTypesData = [
+        { id: 'bitcoin', title: 'Bitcoin (BTC)', content: 'Cryptocurrency terdesentralisasi pertama, diperkenalkan 2008 oleh Satoshi Nakamoto. Dirancang sebagai sistem kas elektronik peer-to-peer dan berkembang menjadi penyimpan nilai ("emas digital"). Total pasokan dibatasi 21 juta koin. Transaksi dikonfirmasi dalam hitungan menit (sekitar 7 TPS). Peristiwa seperti Halving dan peluncuran ETF Spot Bitcoin mendorong adopsi institusional.' },
+        { id: 'ethereum', title: 'Ethereum (ETH)', content: 'Blockchain terdesentralisasi dengan fungsionalitas kontrak pintar, digagas 2013 oleh Vitalik Buterin. Memungkinkan dApps, DeFi, dan NFT. Beralih dari PoW ke PoS ("The Merge") pada Sep 2022, mengurangi penggunaan energi hingga 99%. Transaksi dikonfirmasi dalam hitungan detik (sekitar 15-30 TPS). Diposisikan sebagai "fondasi untuk Web3" dan "infrastruktur di balik Web3".' },
+        { id: 'stablecoin', title: 'Stablecoin', content: 'Jenis cryptocurrency yang dirancang untuk mempertahankan nilai yang stabil dengan menambatkannya pada referensi eksternal (misal: Dolar AS, emas). Tujuan utama adalah menyediakan alternatif terhadap volatilitas harga kripto. Manfaat: Safe Haven, Alat Pembayaran, Memfasilitasi Perdagangan. Kekurangan: Tidak sepenuhnya desentralisasi, kurang transparansi penjaminan aset, minim regulasi.' },
+        { id: 'nft', title: 'Non-Fungible Token (NFT)', content: 'Aset digital unik seperti karya seni, konten digital, atau video yang telah ditokenisasi melalui blockchain. Setiap NFT memiliki kode identifikasi unik dan tidak dapat dipertukarkan langsung. Potensi: Mendefinisikan ulang kepemilikan digital, merepresentasikan identitas, hak properti, dan mempersulit pemalsuan. Contoh: Seni digital, koleksi, nama domain, musik.' },
+        { id: 'defi', title: 'Decentralized Finance (DeFi)', content: 'Ekosistem aplikasi keuangan yang dibangun di atas teknologi blockchain, terutama Ethereum, yang bertujuan menyediakan layanan keuangan tanpa perantara tradisional. Semua proses dijalankan otomatis oleh kontrak pintar. Contoh: DEXs (Uniswap, SushiSwap), Platform Pinjam-Meminjam (Aave, Compound), Protokol Pengelolaan Aset (Yearn Finance).' }
+    ];
+
+    // Data for Infrastructure Accordion
+    const infrastructureData = [
+        { title: 'Layer 1: Jaringan Dasar dan Keamanan', content: 'Layer 1 mengacu pada infrastruktur dasar atau "mainnet" dari sebuah blockchain. Ini adalah lapisan fundamental yang mendukung semua transaksi on-chain dan bertindak sebagai sumber kebenaran. Protokol Layer 1 memiliki fungsionalitas inti, seperti memproses dan menyelesaikan transaksi secara mandiri, mendefinisikan aturan jaringan, menyediakan keamanan, dan menjalankan mekanisme konsensus. Contoh: Bitcoin, Ethereum, Solana.' },
+        { title: 'Layer 2: Solusi Skalabilitas dan Efisiensi', content: 'Layer 2 adalah solusi penskalaan yang dibangun di atas blockchain Layer 1. Tujuannya adalah mengatasi tantangan skalabilitas Layer 1, memungkinkan transaksi yang lebih cepat dan murah tanpa memodifikasi lapisan dasar. Bekerja dengan memproses transaksi di luar blockchain utama (off-chain). Contoh: Rollups (Optimistic Rollups, ZK-Rollups), Sidechains (Polygon). Kelebihan: Skalabilitas, biaya transaksi lebih rendah, pengalaman pengguna lebih baik, mempertahankan keamanan Layer 1. Kekurangan: Kompleksitas, potensi sentralisasi.' }
+    ];
+
+    // Data for Platforms & Wallets Accordion
+    const platformsWalletsData = [
+        { title: 'Bursa Kripto (Exchange)', content: 'Platform digital di mana pengguna dapat membeli, menjual, dan menukar berbagai jenis cryptocurrency. Berfungsi sebagai pasar di mana harga aset ditentukan oleh penawaran dan permintaan. Contoh global: Binance, Bybit, Coinbase Exchange, OKX. Contoh di Indonesia (diawasi Bappebti/OJK/BI): Tokocrypto, Triv. Penting memilih platform resmi terdaftar.' },
+        { title: 'Hot Wallets', content: 'Definisi: Dompet perangkat lunak yang selalu terhubung ke internet. Kunci pribadi disimpan pada perangkat yang terhubung ke internet. Kelebihan: Kenyamanan, kecepatan transaksi, umumnya gratis. Kekurangan: Lebih rentan terhadap ancaman siber (peretasan, phishing) karena selalu online. Contoh: MetaMask, Coinbase Wallet, Trust Wallet, Exodus Wallet, Phantom Wallet.' },
+        { title: 'Cold Wallets', content: 'Definisi: Dompet perangkat keras atau metode penyimpanan offline yang tidak terhubung ke internet. Kelebihan: Keamanan sangat tinggi karena offline, ideal untuk penyimpanan jangka panjang dana besar. Kekurangan: Kurang nyaman untuk transaksi sering, umumnya berbayar, risiko fisik (hilang/rusak). Contoh: Hardware Wallets (Ledger, Trezor, Tangem), Paper Wallets, Deep Cold Storage.' },
+        { title: 'Web3 Wallets', content: 'Definisi: Dompet digital yang dirancang khusus untuk dunia keuangan terdesentralisasi (DeFi). Berfungsi sebagai gateway untuk berinteraksi dengan jaringan blockchain dan dApps. Jenis: Non-Custodial (pengguna kontrol kunci pribadi), Custodial (pihak ketiga kelola kunci), Smart Contract Wallets. Keamanan: Enkripsi kuat, peringatan potensi bahaya. Pilihan tergantung toleransi risiko dan frekuensi perdagangan.' }
+    ];
+
+    // Data for AI & Big Data Integration Accordion
+    const aiBigDataIntegrationData = [
+        { title: 'Sinergi Blockchain, AI, dan Big Data', content: 'Integrasi Big Data dan blockchain menjadi vital untuk proses transparan dan berkelanjutan. Blockchain menyediakan infrastruktur data yang aman, tidak dapat diubah, dan transparan. Big Data menawarkan kemampuan mengumpulkan, menyimpan, dan menganalisis volume informasi besar. AI memanfaatkan data terverifikasi dari blockchain untuk analisis canggih, prediksi akurat, dan otomatisasi. Konvergensi ini berpotensi membuka tingkat otomatisasi, efisiensi, dan model bisnis baru.' },
+        { title: 'Dampak dan Contoh di Masa Depan', content: 'Keuangan: Analisis Pasar Prediktif (AI menganalisis data blockchain untuk prediksi harga), Otomatisasi Perdagangan (algoritma AI mengotomatiskan strategi perdagangan). Rantai Pasok: Pelacakan Transparan (blockchain melacak produk, AI menganalisis data untuk efisiensi). Kesehatan: Manajemen Data Pasien Aman (blockchain untuk rekam medis, AI menganalisis data anonim untuk diagnosis). Identitas Digital: Sistem Identitas Mandiri (blockchain dan AI untuk identitas digital aman). Dampak Lingkungan: AI dapat mengoptimalkan konsumsi energi dalam operasional blockchain/pusat data.' },
+        { title: 'Tantangan', content: 'Meskipun potensi integrasi ini sangat besar, ada tantangan yang harus dihadapi, termasuk kompleksitas teknis, masalah regulasi, dan kebutuhan akan standar interoperabilitas.' }
+    ];
+
+    // Function to create Accordion sections
+    function createAccordion(containerId, data) {
+        const container = document.getElementById(containerId);
+        if (!container) return; // Ensure container exists
+        data.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'accordion-item bg-[#112240] rounded-lg shadow-sm border border-[#233554]';
+            div.innerHTML = `
+                <div class="accordion-header flex justify-between items-center p-4 cursor-pointer">
+                    <h4 class="font-semibold text-lg">${item.title}</h4>
+                    <span class="accordion-icon text-2xl text-[#64FFDA] transform transition-transform">+</span>
+                </div>
+                <div class="accordion-content border-t border-[#233554]">
+                    <p class="text-[#8892B0]">${item.content}</p>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+
+        container.addEventListener('click', e => {
+            const header = e.target.closest('.accordion-header');
+            if (header) {
+                const content = header.nextElementSibling;
+                const icon = header.querySelector('.accordion-icon');
+
+                content.classList.toggle('open');
+                icon.classList.toggle('rotate-45');
+
+                if (content.classList.contains('open')) {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    content.addEventListener('transitionend', function handler() {
+                        content.style.maxHeight = 'none'; // Allow content to grow if dynamically changed
+                        content.removeEventListener('transitionend', handler);
+                    });
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    requestAnimationFrame(() => {
+                        content.style.maxHeight = '0px';
+                    });
+                }
+            }
+        });
+    }
+
+    // Function to create Tabs
+    function createTabs(tabContainerId, contentContainerId, data) {
+        const tabContainer = document.getElementById(tabContainerId);
+        const contentContainer = document.getElementById(contentContainerId);
+        if (!tabContainer || !contentContainer) return;
+
+        let firstTabButton = null;
+
+        data.forEach((item, index) => {
+            // Create tab button
+            const button = document.createElement('button');
+            button.className = `tab-button ${index === 0 ? 'active' : ''}`;
+            button.dataset.tab = item.id;
+            button.textContent = item.title;
+            tabContainer.appendChild(button);
+
+            if (index === 0) {
+                firstTabButton = button;
+            }
+
+            // Create tab content
+            const div = document.createElement('div');
+            div.id = `tab-content-${item.id}`;
+            div.className = `tab-content ${index === 0 ? 'active' : ''}`;
+            div.innerHTML = `<p class="text-[#8892B0]">${item.content}</p>`;
+            contentContainer.appendChild(div);
+        });
+
+        tabContainer.addEventListener('click', e => {
+            const button = e.target.closest('.tab-button');
+            if (button) {
+                // Deactivate current active tab
+                document.querySelector(`#${tabContainerId} .tab-button.active`)?.classList.remove('active');
+                document.querySelector(`#${contentContainerId} .tab-content.active`)?.classList.remove('active');
+
+                // Activate new tab
+                button.classList.add('active');
+                document.getElementById(`tab-content-${button.dataset.tab}`).classList.add('active');
+            }
+        });
+
+        // Ensure the first tab content is displayed on load
+        if (firstTabButton) {
+            firstTabButton.click();
+        }
+    }
+
+    // Initialize all components
+    createAccordion('crypto-characteristics-accordion', cryptoCharacteristicsData);
+    createAccordion('blockchain-pillars-accordion', blockchainPillarsData);
+    createTabs('consensus-tabs', 'consensus-content', consensusMechanismsData);
+    createTabs('asset-tabs', 'asset-content', assetTypesData);
+    createAccordion('infrastructure-accordion', infrastructureData);
+    createAccordion('platforms-wallets-accordion', platformsWalletsData);
+    createAccordion('ai-bigdata-accordion', aiBigDataIntegrationData);
+
+    // Render Crypto Adoption Chart
+    let adoptionChart;
+    function renderAdoptionChart() {
+        const ctx = document.getElementById('adoptionChart').getContext('2d');
+        if (adoptionChart) {
+            adoptionChart.destroy();
+        }
+        adoptionChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: adoptionChartData.labels.map(label => {
+                    const words = label.split(' ');
+                    let wrappedLabel = '';
+                    let currentLine = '';
+                    for (let i = 0; i < words.length; i++) {
+                        if ((currentLine + words[i]).length > 16 && currentLine.length > 0) {
+                            wrappedLabel += currentLine.trim() + '\n';
+                            currentLine = words[i] + ' ';
+                        } else {
+                            currentLine += words[i] + ' ';
+                        }
+                    }
+                    wrappedLabel += currentLine.trim();
+                    return wrappedLabel;
+                }),
+                datasets: [{
+                    label: 'Jumlah Pemilik Aset Kripto (Juta)',
+                    data: adoptionChartData.data,
+                    backgroundColor: adoptionChartData.backgroundColor,
+                    borderColor: adoptionChartData.borderColor,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ` ${context.raw} Juta Orang`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Jumlah Pemilik (Juta)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            autoSkip: false,
+                            maxRotation: 45,
+                            minRotation: 0
+                        }
+                    }
+                }
+            }
+        });
+    }
+    renderAdoptionChart();
+
+    // Smooth scrolling and active nav link logic
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section');
+
+    window.onscroll = () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            // Adjust offset for sticky header height
+            if (pageYOffset >= sectionTop - document.getElementById('header').offsetHeight - 20) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
+        });
+    };
+});
+</script>
+
+</body>
+</html>
